@@ -8,10 +8,6 @@ call pathogen#infect()
 " allow jj to exist insert mode
 imap jj <Esc>
 
-" make tab autocomplete
-imap <C-C> <C-X><C-O>
-
-
 " switch on syntax highlighting
 syntax enable
 
@@ -30,6 +26,8 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set ruler
+set cindent
+set smarttab
 
 " line numbers
 set number
@@ -74,7 +72,7 @@ set secure
 
 " javascript
 autocmd FileType javascript inoremap (; ();<Esc>hi
-autocmd FileType javascript inoremap {<CR> {<CR>}<Esc><S-o>
+autocmd FileType javascript inoremap {<CR> {<CR>}<Esc><S-o><Tab>
 
 
 " Word Processing Mode
@@ -155,7 +153,6 @@ inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
-inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
