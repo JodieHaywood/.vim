@@ -1,4 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =2
+let g:netrw_dirhist_cnt =3
 let g:netrw_dirhist_1='/etc/apt/sources.list.d'
 let g:netrw_dirhist_2='/home/ling/Documents/nyu-courses/.meteor/local/build/app/packages/accounts-facebook'
+let g:netrw_dirhist_3='/home/ling/.config'

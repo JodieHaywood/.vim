@@ -36,7 +36,6 @@ nmap <silent>  :wincmd h
 nmap <silent> <NL> :wincmd j
 nmap <silent>  :wincmd k
 nmap <silent>  :wincmd l
-nnoremap  :call NumberToggle()
 vmap c <Plug>ZenCodingCodePretty
 vmap m <Plug>ZenCodingMergeLines
 vmap D <Plug>ZenCodingBalanceTagOutwardVisual
@@ -78,7 +77,6 @@ xmap \c  <Plug>NERDCommenterToggle
 nmap \c  <Plug>NERDCommenterToggle
 xmap \cc <Plug>NERDCommenterComment
 nmap \cc <Plug>NERDCommenterComment
-map \l :call LoadSession()
 map \m :call MakeSession()
 nmap cs <Plug>Csurround
 nmap ds <Plug>Dsurround
@@ -133,8 +131,8 @@ nnoremap <silent> <Plug>NERDCommenterComment :call NERDComment("n", "Comment")
 map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
 map <F4> :TlistToggle
 map <F3> :NERDTreeToggle 
-nmap <silent> <C-Up> +
-nmap <silent> <C-Down> -
+nmap <silent> <C-Up> -
+nmap <silent> <C-Down> +
 nmap <silent> <C-Left> <
 nmap <silent> <C-Right> >
 inoremap <expr>  neocomplcache#cancel_popup()
@@ -158,9 +156,7 @@ imap d <Plug>ZenCodingBalanceTagInwardInsert
 imap ; <Plug>ZenCodingExpandWord
 imap , <Plug>ZenCodingExpandAbbr
 inoremap <expr>  neocomplcache#close_popup()
-inoremap (; ();hi
 imap jj 
-inoremap { {}O	
 let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
@@ -175,7 +171,7 @@ set hidden
 set ignorecase
 set pastetoggle=<F2>
 set ruler
-set runtimepath=~/.vim,~/.vim/bundle/JavaScript-Indent,~/.vim/bundle/delimitMate,~/.vim/bundle/neocomplcache.vim,~/.vim/bundle/nerdcommenter,~/.vim/bundle/nerdtree,~/.vim/bundle/syntastic,~/.vim/bundle/taglist.vim,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/vim-cucumber,~/.vim/bundle/vim-endwise,~/.vim/bundle/vim-less,~/.vim/bundle/vim-rails,~/.vim/bundle/vim-repeat,~/.vim/bundle/vim-surround,~/.vim/bundle/zencoding-vim,/usr/local/share/vim/vim73/vimfiles,/usr/local/share/vim/vim73,/usr/local/share/vim/vim73/vimfiles/after,~/.vim/after
+set runtimepath=~/.vim,~/.vim/bundle/JavaScript-Indent,~/.vim/bundle/delimitMate,~/.vim/bundle/neocomplcache.vim,~/.vim/bundle/nerdcommenter,~/.vim/bundle/nerdtree,~/.vim/bundle/syntastic,~/.vim/bundle/taglist.vim,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/vim-cucumber,~/.vim/bundle/vim-endwise,~/.vim/bundle/vim-rails,~/.vim/bundle/vim-repeat,~/.vim/bundle/vim-surround,~/.vim/bundle/zencoding-vim,/usr/local/share/vim/vim73/vimfiles,/usr/local/share/vim/vim73,/usr/local/share/vim/vim73/vimfiles/after,~/.vim/after
 set secure
 set shiftwidth=2
 set showmatch
@@ -188,14 +184,14 @@ set tabstop=2
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
-cd ~/Documents/nyu-student-voice
+cd ~/Documents/trendify
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 collections/comments.js
-silent! argdel *
-edit collections/comments.js
+badd +0 .git/MERGE_MSG
+args .git/MERGE_MSG
+edit .git/MERGE_MSG
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -258,8 +254,8 @@ setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
-setlocal commentstring=//%s
+setlocal comments=:#
+setlocal commentstring=#\ %s
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
@@ -275,8 +271,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'javascript'
-setlocal filetype=javascript
+if &filetype != 'conf'
+setlocal filetype=conf
 endif
 setlocal foldcolumn=0
 setlocal foldenable
@@ -296,8 +292,8 @@ setlocal iminsert=2
 setlocal imsearch=2
 setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=GetJsIndent(v:lnum)
-setlocal indentkeys=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
@@ -310,17 +306,16 @@ setlocal modeline
 setlocal modifiable
 setlocal nrformats=octal,hex
 set number
-setlocal nonumber
+setlocal number
 set numberwidth=3
 setlocal numberwidth=3
-setlocal omnifunc=javascriptcomplete#CompleteJS
+setlocal omnifunc=
 setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
-set relativenumber
-setlocal relativenumber
+setlocal norelativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
@@ -336,8 +331,8 @@ setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'javascript'
-setlocal syntax=javascript
+if &syntax != 'conf'
+setlocal syntax=conf
 endif
 setlocal tabstop=2
 setlocal tags=
@@ -350,12 +345,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 28) / 56)
+let s:l = 1 - ((0 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 1
-normal! 0
+normal! 06l
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf

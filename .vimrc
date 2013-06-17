@@ -59,6 +59,15 @@ set pastetoggle=<F2> " allows F2 to be mapped to turn on and off pasting in vim
 " maps F3 to open the file explorer
 map <F3> :NERDTreeToggle<CR> 
 
+function! StartUp()
+    if 0 == argc()
+        NERDTree
+    end
+endfunction
+
+autocmd VimEnter * call StartUp()
+
+
 " using ctags
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
 let Tlist_WinWidth = 50
@@ -104,6 +113,7 @@ function! UpdateSession()
   let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
   let b:sessionfile = b:sessiondir . "/session.vim"
   if (filereadable(b:sessionfile))
+    NERDTreeClose
     exe "mksession! " . b:sessionfile
     echo "updating session"
   endif
@@ -116,6 +126,7 @@ function! LoadSession()
     let b:sessionfile = b:sessiondir . "/session.vim"
     if (filereadable(b:sessionfile))
       exe 'source ' b:sessionfile
+      NERDTree
     else
       echo "No session loaded."
     endif
@@ -125,9 +136,9 @@ function! LoadSession()
   endif
 endfunction
 
-au VimEnter * nested :call LoadSession()
 au VimLeave * :call UpdateSession()
 map <leader>m :call MakeSession()<CR>
+map <leader>l :call LoadSession()<CR>
 
 " neocomplete
 let g:acp_enableAtStartup = 0
@@ -150,7 +161,6 @@ endfunction
 
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -165,3 +175,25 @@ let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
+
+" delimitMate options
+let delimitMateBackspace = 1
+
+" relative line numbers
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr>
+
+au FocusLost * :set number
+au FocusGained * :set relativenumber
+
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+
+set relativenumber
