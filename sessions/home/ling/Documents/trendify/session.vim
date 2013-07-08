@@ -2,6 +2,13 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
+inoremap <silent> <Plug>delimitMate> =delimitMate#JumpOut("\>")
+inoremap <silent> <Plug>delimitMate< <=delimitMate#ParenDelim(">")
+inoremap <silent> <Plug>(neocomplcache_start_omni_complete) 
+inoremap <silent> <Plug>(neocomplcache_start_auto_complete_no_select) 
+inoremap <silent> <Plug>(neocomplcache_start_auto_complete) =neocomplcache#mappings#popup_post()
+inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_quick_match) unite#sources#neocomplcache#start_quick_match()
+inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_complete) unite#sources#neocomplcache#start_complete()
 inoremap <Plug>ZenCodingAnchorizeSummary :call zencoding#anchorizeURL(1)a
 inoremap <Plug>ZenCodingAnchorizeURL :call zencoding#anchorizeURL(0)a
 inoremap <Plug>ZenCodingRemoveTag :call zencoding#removeTag()a
@@ -36,6 +43,7 @@ nmap <silent>  :wincmd h
 nmap <silent> <NL> :wincmd j
 nmap <silent>  :wincmd k
 nmap <silent>  :wincmd l
+nnoremap  :call NumberToggle()
 vmap c <Plug>ZenCodingCodePretty
 vmap m <Plug>ZenCodingMergeLines
 vmap D <Plug>ZenCodingBalanceTagOutwardVisual
@@ -77,6 +85,7 @@ xmap \c  <Plug>NERDCommenterToggle
 nmap \c  <Plug>NERDCommenterToggle
 xmap \cc <Plug>NERDCommenterComment
 nmap \cc <Plug>NERDCommenterComment
+map \n :call LoadSession()
 map \m :call MakeSession()
 nmap cs <Plug>Csurround
 nmap ds <Plug>Dsurround
@@ -156,12 +165,17 @@ imap d <Plug>ZenCodingBalanceTagInwardInsert
 imap ; <Plug>ZenCodingExpandWord
 imap , <Plug>ZenCodingExpandAbbr
 inoremap <expr>  neocomplcache#close_popup()
+inoremap (; ();hi
 imap jj 
+inoremap { {}O	
 let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
 set backspace=indent,eol,start
+set balloonexpr=SyntasticBalloonsExprNotifier()
 set cindent
+set completefunc=neocomplcache#complete#manual_complete
+set completeopt=preview,menuone
 set cryptmethod=blowfish
 set expandtab
 set exrc
@@ -181,6 +195,7 @@ set softtabstop=2
 set splitbelow
 set splitright
 set tabstop=2
+set window=37
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
 silent only
@@ -189,9 +204,379 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 .git/MERGE_MSG
+badd +1 .git/MERGE_MSG
+badd +8 collections/taxonomy.js
+badd +1 client/views/index.js
+badd +19 lib/sign.js
+badd +82 lib/bitly.js
+badd +12 server/sociocast.js
+badd +1 client/main.html
+badd +1 client/views/index.html
+badd +0 client/main.js
+badd +1 ~/Documents/trendify/server/startup.js
 args .git/MERGE_MSG
-edit .git/MERGE_MSG
+edit ~/Documents/trendify/server/startup.js
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd t
+set winheight=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 31 + 83) / 167)
+exe 'vert 2resize ' . ((&columns * 135 + 83) / 167)
+argglobal
+enew
+file NERD_tree_2
+let s:cpo_save=&cpo
+set cpo&vim
+imap <buffer> <RightMouse> <Plug>delimitMateMRightMouse
+imap <buffer> <LeftMouse> <Plug>delimitMateMLeftMouse
+imap <buffer> <S-Up> <Plug>delimitMateS-Up
+imap <buffer> <S-Down> <Plug>delimitMateS-Down
+imap <buffer> <PageDown> <Plug>delimitMatePageDown
+imap <buffer> <PageUp> <Plug>delimitMatePageUp
+imap <buffer> <Down> <Plug>delimitMateDown
+imap <buffer> <Up> <Plug>delimitMateUp
+imap <buffer> <C-Right> <Plug>delimitMateC-Right
+imap <buffer> <C-Left> <Plug>delimitMateC-Left
+imap <buffer> <End> <Plug>delimitMateEnd
+imap <buffer> <Home> <Plug>delimitMateHome
+imap <buffer> <Right> <Plug>delimitMateRight
+imap <buffer> <Left> <Plug>delimitMateLeft
+imap <buffer> <Del> <Plug>delimitMateDel
+imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
+imap <buffer> <S-BS> <Plug>delimitMateS-BS
+imap <buffer> <BS> <Plug>delimitMateBS
+inoremap <buffer> <Plug>delimitMateJumpMany =len(b:_l_delimitMate_buffer) ? delimitMate#Finish(0) : delimitMate#JumpMany()
+imap <buffer> <C-ScrollWheelRight> <Plug>delimitMateC-ScrollWheelRight
+imap <buffer> <S-ScrollWheelRight> <Plug>delimitMateS-ScrollWheelRight
+imap <buffer> <ScrollWheelRight> <Plug>delimitMateScrollWheelRight
+imap <buffer> <C-ScrollWheelLeft> <Plug>delimitMateC-ScrollWheelLeft
+imap <buffer> <S-ScrollWheelLeft> <Plug>delimitMateS-ScrollWheelLeft
+imap <buffer> <ScrollWheelLeft> <Plug>delimitMateScrollWheelLeft
+imap <buffer> <C-ScrollWheelDown> <Plug>delimitMateC-ScrollWheelDown
+imap <buffer> <S-ScrollWheelDown> <Plug>delimitMateS-ScrollWheelDown
+imap <buffer> <ScrollWheelDown> <Plug>delimitMateScrollWheelDown
+imap <buffer> <C-ScrollWheelUp> <Plug>delimitMateC-ScrollWheelUp
+imap <buffer> <S-ScrollWheelUp> <Plug>delimitMateS-ScrollWheelUp
+imap <buffer> <ScrollWheelUp> <Plug>delimitMateScrollWheelUp
+nnoremap <buffer> <silent> <NL> :call nerdtree#invokeKeyMap("<C-j>")
+nnoremap <buffer> <silent>  :call nerdtree#invokeKeyMap("<C-k>")
+nnoremap <buffer> <silent>  :call nerdtree#invokeKeyMap('o')
+nnoremap <buffer> <silent> ? :call nerdtree#invokeKeyMap("?")
+nnoremap <buffer> <silent> A :call nerdtree#invokeKeyMap("A")
+nnoremap <buffer> <silent> B :call nerdtree#invokeKeyMap("B")
+nnoremap <buffer> <silent> CD :call nerdtree#invokeKeyMap("CD")
+nnoremap <buffer> <silent> C :call nerdtree#invokeKeyMap("C")
+nnoremap <buffer> <silent> D :call nerdtree#invokeKeyMap("D")
+nnoremap <buffer> <silent> F :call nerdtree#invokeKeyMap("F")
+nnoremap <buffer> <silent> I :call nerdtree#invokeKeyMap("I")
+nnoremap <buffer> <silent> J :call nerdtree#invokeKeyMap("J")
+nnoremap <buffer> <silent> K :call nerdtree#invokeKeyMap("K")
+nnoremap <buffer> <silent> O :call nerdtree#invokeKeyMap("O")
+nnoremap <buffer> <silent> P :call nerdtree#invokeKeyMap("P")
+nnoremap <buffer> <silent> R :call nerdtree#invokeKeyMap("R")
+nnoremap <buffer> <silent> T :call nerdtree#invokeKeyMap("T")
+nnoremap <buffer> <silent> U :call nerdtree#invokeKeyMap("U")
+nnoremap <buffer> <silent> X :call nerdtree#invokeKeyMap("X")
+nnoremap <buffer> <silent> cd :call nerdtree#invokeKeyMap("cd")
+nnoremap <buffer> <silent> e :call nerdtree#invokeKeyMap("e")
+nnoremap <buffer> <silent> f :call nerdtree#invokeKeyMap("f")
+nnoremap <buffer> <silent> gi :call nerdtree#invokeKeyMap("gi")
+nnoremap <buffer> <silent> gs :call nerdtree#invokeKeyMap("gs")
+nnoremap <buffer> <silent> go :call nerdtree#invokeKeyMap("go")
+nnoremap <buffer> <silent> i :call nerdtree#invokeKeyMap("i")
+nnoremap <buffer> <silent> m :call nerdtree#invokeKeyMap("m")
+nnoremap <buffer> <silent> o :call nerdtree#invokeKeyMap("o")
+nnoremap <buffer> <silent> p :call nerdtree#invokeKeyMap("p")
+nnoremap <buffer> <silent> q :call nerdtree#invokeKeyMap("q")
+nnoremap <buffer> <silent> r :call nerdtree#invokeKeyMap("r")
+nnoremap <buffer> <silent> s :call nerdtree#invokeKeyMap("s")
+nnoremap <buffer> <silent> t :call nerdtree#invokeKeyMap("t")
+nnoremap <buffer> <silent> u :call nerdtree#invokeKeyMap("u")
+nnoremap <buffer> <silent> x :call nerdtree#invokeKeyMap("x")
+nnoremap <buffer> <silent> <2-LeftMouse> :call nerdtree#invokeKeyMap("<2-LeftMouse>")
+nnoremap <buffer> <silent> <LeftRelease> <LeftRelease>:call nerdtree#invokeKeyMap("<LeftRelease>")
+nnoremap <buffer> <silent> <MiddleRelease> :call nerdtree#invokeKeyMap("<MiddleRelease>")
+imap <buffer> <silent> g <Plug>delimitMateJumpMany
+imap <buffer> " <Plug>delimitMate"
+imap <buffer> ' <Plug>delimitMate'
+imap <buffer> ( <Plug>delimitMate(
+imap <buffer> ) <Plug>delimitMate)
+imap <buffer> [ <Plug>delimitMate[
+imap <buffer> ] <Plug>delimitMate]
+imap <buffer> ` <Plug>delimitMate`
+imap <buffer> { <Plug>delimitMate{
+imap <buffer> } <Plug>delimitMate}
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal balloonexpr=
+setlocal nobinary
+setlocal bufhidden=hide
+setlocal nobuflisted
+setlocal buftype=nofile
+setlocal cindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*%s*/
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal cursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'nerdtree'
+setlocal filetype=nerdtree
+endif
+setlocal foldcolumn=0
+setlocal nofoldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=tcq
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=2
+setlocal imsearch=2
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal nolist
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal nomodifiable
+setlocal nrformats=octal,hex
+set number
+setlocal nonumber
+set numberwidth=3
+setlocal numberwidth=3
+setlocal omnifunc=
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal smartindent
+setlocal softtabstop=2
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=%{exists('b:NERDTreeRoot')?b:NERDTreeRoot.path.str():''}
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'nerdtree'
+setlocal syntax=nerdtree
+endif
+setlocal tabstop=2
+setlocal tags=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal nowinfixheight
+setlocal winfixwidth
+set nowrap
+setlocal nowrap
+setlocal wrapmargin=0
+wincmd w
+argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+imap <buffer> <RightMouse> <Plug>delimitMateMRightMouse
+imap <buffer> <LeftMouse> <Plug>delimitMateMLeftMouse
+imap <buffer> <S-Up> <Plug>delimitMateS-Up
+imap <buffer> <S-Down> <Plug>delimitMateS-Down
+imap <buffer> <PageDown> <Plug>delimitMatePageDown
+imap <buffer> <PageUp> <Plug>delimitMatePageUp
+imap <buffer> <Down> <Plug>delimitMateDown
+imap <buffer> <Up> <Plug>delimitMateUp
+imap <buffer> <C-Right> <Plug>delimitMateC-Right
+imap <buffer> <C-Left> <Plug>delimitMateC-Left
+imap <buffer> <End> <Plug>delimitMateEnd
+imap <buffer> <Home> <Plug>delimitMateHome
+imap <buffer> <Right> <Plug>delimitMateRight
+imap <buffer> <Left> <Plug>delimitMateLeft
+imap <buffer> <Del> <Plug>delimitMateDel
+imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
+imap <buffer> <S-BS> <Plug>delimitMateS-BS
+imap <buffer> <BS> <Plug>delimitMateBS
+inoremap <buffer> <Plug>delimitMateJumpMany =len(b:_l_delimitMate_buffer) ? delimitMate#Finish(0) : delimitMate#JumpMany()
+imap <buffer> <C-ScrollWheelRight> <Plug>delimitMateC-ScrollWheelRight
+imap <buffer> <S-ScrollWheelRight> <Plug>delimitMateS-ScrollWheelRight
+imap <buffer> <ScrollWheelRight> <Plug>delimitMateScrollWheelRight
+imap <buffer> <C-ScrollWheelLeft> <Plug>delimitMateC-ScrollWheelLeft
+imap <buffer> <S-ScrollWheelLeft> <Plug>delimitMateS-ScrollWheelLeft
+imap <buffer> <ScrollWheelLeft> <Plug>delimitMateScrollWheelLeft
+imap <buffer> <C-ScrollWheelDown> <Plug>delimitMateC-ScrollWheelDown
+imap <buffer> <S-ScrollWheelDown> <Plug>delimitMateS-ScrollWheelDown
+imap <buffer> <ScrollWheelDown> <Plug>delimitMateScrollWheelDown
+imap <buffer> <C-ScrollWheelUp> <Plug>delimitMateC-ScrollWheelUp
+imap <buffer> <S-ScrollWheelUp> <Plug>delimitMateS-ScrollWheelUp
+imap <buffer> <ScrollWheelUp> <Plug>delimitMateScrollWheelUp
+imap <buffer> <silent> g <Plug>delimitMateJumpMany
+imap <buffer> " <Plug>delimitMate"
+imap <buffer> ' <Plug>delimitMate'
+imap <buffer> ( <Plug>delimitMate(
+imap <buffer> ) <Plug>delimitMate)
+imap <buffer> [ <Plug>delimitMate[
+imap <buffer> ] <Plug>delimitMate]
+imap <buffer> ` <Plug>delimitMate`
+imap <buffer> { <Plug>delimitMate{
+imap <buffer> } <Plug>delimitMate}
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal balloonexpr=
+setlocal nobinary
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+setlocal commentstring=//%s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=neocomplcache#complete#manual_complete
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'javascript'
+setlocal filetype=javascript
+endif
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=2
+setlocal imsearch=2
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=GetJsIndent(v:lnum)
+setlocal indentkeys=
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal nolist
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+set number
+setlocal number
+set numberwidth=3
+setlocal numberwidth=3
+setlocal omnifunc=javascriptcomplete#CompleteJS
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal relativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal smartindent
+setlocal softtabstop=2
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'javascript'
+setlocal syntax=javascript
+endif
+setlocal tabstop=2
+setlocal tags=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal nowinfixheight
+setlocal nowinfixwidth
+set nowrap
+setlocal nowrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 17) / 35)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+1
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 31 + 83) / 167)
+exe 'vert 2resize ' . ((&columns * 135 + 83) / 167)
+tabedit server/sociocast.js
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -254,12 +639,12 @@ setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=:#
-setlocal commentstring=#\ %s
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+setlocal commentstring=//%s
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
-setlocal completefunc=
+setlocal completefunc=neocomplcache#complete#auto_complete
 setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
@@ -271,8 +656,8 @@ setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
 setlocal expandtab
-if &filetype != 'conf'
-setlocal filetype=conf
+if &filetype != 'javascript'
+setlocal filetype=javascript
 endif
 setlocal foldcolumn=0
 setlocal foldenable
@@ -292,8 +677,8 @@ setlocal iminsert=2
 setlocal imsearch=2
 setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal indentexpr=GetJsIndent(v:lnum)
+setlocal indentkeys=
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
@@ -306,16 +691,17 @@ setlocal modeline
 setlocal modifiable
 setlocal nrformats=octal,hex
 set number
-setlocal number
+setlocal nonumber
 set numberwidth=3
 setlocal numberwidth=3
-setlocal omnifunc=
+setlocal omnifunc=javascriptcomplete#CompleteJS
 setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
-setlocal norelativenumber
+set relativenumber
+setlocal relativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
@@ -331,8 +717,8 @@ setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'conf'
-setlocal syntax=conf
+if &syntax != 'javascript'
+setlocal syntax=javascript
 endif
 setlocal tabstop=2
 setlocal tags=
@@ -345,13 +731,174 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 20) / 40)
+let s:l = 13 - ((12 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 06l
-tabnext 1
+13
+normal! 066l
+tabedit client/main.js
+set splitbelow splitright
+wincmd t
+set winheight=1 winwidth=1
+argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+imap <buffer> <RightMouse> <Plug>delimitMateMRightMouse
+imap <buffer> <LeftMouse> <Plug>delimitMateMLeftMouse
+imap <buffer> <S-Up> <Plug>delimitMateS-Up
+imap <buffer> <S-Down> <Plug>delimitMateS-Down
+imap <buffer> <PageDown> <Plug>delimitMatePageDown
+imap <buffer> <PageUp> <Plug>delimitMatePageUp
+imap <buffer> <Down> <Plug>delimitMateDown
+imap <buffer> <Up> <Plug>delimitMateUp
+imap <buffer> <C-Right> <Plug>delimitMateC-Right
+imap <buffer> <C-Left> <Plug>delimitMateC-Left
+imap <buffer> <End> <Plug>delimitMateEnd
+imap <buffer> <Home> <Plug>delimitMateHome
+imap <buffer> <Right> <Plug>delimitMateRight
+imap <buffer> <Left> <Plug>delimitMateLeft
+imap <buffer> <Del> <Plug>delimitMateDel
+imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
+imap <buffer> <S-BS> <Plug>delimitMateS-BS
+imap <buffer> <BS> <Plug>delimitMateBS
+inoremap <buffer> <Plug>delimitMateJumpMany =len(b:_l_delimitMate_buffer) ? delimitMate#Finish(0) : delimitMate#JumpMany()
+imap <buffer> <C-ScrollWheelRight> <Plug>delimitMateC-ScrollWheelRight
+imap <buffer> <S-ScrollWheelRight> <Plug>delimitMateS-ScrollWheelRight
+imap <buffer> <ScrollWheelRight> <Plug>delimitMateScrollWheelRight
+imap <buffer> <C-ScrollWheelLeft> <Plug>delimitMateC-ScrollWheelLeft
+imap <buffer> <S-ScrollWheelLeft> <Plug>delimitMateS-ScrollWheelLeft
+imap <buffer> <ScrollWheelLeft> <Plug>delimitMateScrollWheelLeft
+imap <buffer> <C-ScrollWheelDown> <Plug>delimitMateC-ScrollWheelDown
+imap <buffer> <S-ScrollWheelDown> <Plug>delimitMateS-ScrollWheelDown
+imap <buffer> <ScrollWheelDown> <Plug>delimitMateScrollWheelDown
+imap <buffer> <C-ScrollWheelUp> <Plug>delimitMateC-ScrollWheelUp
+imap <buffer> <S-ScrollWheelUp> <Plug>delimitMateS-ScrollWheelUp
+imap <buffer> <ScrollWheelUp> <Plug>delimitMateScrollWheelUp
+imap <buffer> <silent> g <Plug>delimitMateJumpMany
+imap <buffer> " <Plug>delimitMate"
+imap <buffer> ' <Plug>delimitMate'
+imap <buffer> ( <Plug>delimitMate(
+imap <buffer> ) <Plug>delimitMate)
+imap <buffer> [ <Plug>delimitMate[
+imap <buffer> ] <Plug>delimitMate]
+imap <buffer> ` <Plug>delimitMate`
+imap <buffer> { <Plug>delimitMate{
+imap <buffer> } <Plug>delimitMate}
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal balloonexpr=
+setlocal nobinary
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+setlocal commentstring=//%s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=neocomplcache#complete#auto_complete
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'javascript'
+setlocal filetype=javascript
+endif
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=2
+setlocal imsearch=2
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=GetJsIndent(v:lnum)
+setlocal indentkeys=
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal nolist
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+set number
+setlocal nonumber
+set numberwidth=3
+setlocal numberwidth=3
+setlocal omnifunc=javascriptcomplete#CompleteJS
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal relativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal smartindent
+setlocal softtabstop=2
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'javascript'
+setlocal syntax=javascript
+endif
+setlocal tabstop=2
+setlocal tags=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal nowinfixheight
+setlocal nowinfixwidth
+set nowrap
+setlocal nowrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 79 - ((7 * winheight(0) + 18) / 36)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+79
+normal! 010l
+tabnext 2
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

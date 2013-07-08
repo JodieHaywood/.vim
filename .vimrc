@@ -26,7 +26,6 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set ruler
-set cindent
 set smarttab
 
 " line numbers
@@ -138,7 +137,7 @@ endfunction
 
 au VimLeave * :call UpdateSession()
 map <leader>m :call MakeSession()<CR>
-map <leader>l :call LoadSession()<CR>
+map <leader>n :call LoadSession()<CR>
 
 " neocomplete
 let g:acp_enableAtStartup = 0
@@ -197,3 +196,14 @@ autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
 set relativenumber
+
+" Controlling vim-latex
+let g:Tex_SmartKeyBS = 0
+let g:Tex_SmartKeyQuote = 0
+let g:Tex_SmartKeyDot = 0
+let g:Imap_UsePlaceHolders = 0
+let g:Tex_Leader = '`tex'
+let g:Tex_Leader2 = ',tex'
+let Tex_FoldedSections=""
+let Tex_FoldedEnvironments=""
+let Tex_FoldedMisc=""
