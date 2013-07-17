@@ -2,13 +2,11 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <silent> <Plug>delimitMate< <=delimitMate#ParenDelim(">")
-inoremap <silent> <Plug>delimitMate> =delimitMate#JumpOut("\>")
-inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_complete) unite#sources#neocomplcache#start_complete()
-inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_quick_match) unite#sources#neocomplcache#start_quick_match()
-inoremap <silent> <Plug>(neocomplcache_start_auto_complete) =neocomplcache#mappings#popup_post()
-inoremap <silent> <Plug>(neocomplcache_start_auto_complete_no_select) 
 inoremap <silent> <Plug>(neocomplcache_start_omni_complete) 
+inoremap <silent> <Plug>(neocomplcache_start_auto_complete_no_select) 
+inoremap <silent> <Plug>(neocomplcache_start_auto_complete) =neocomplcache#mappings#popup_post()
+inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_quick_match) unite#sources#neocomplcache#start_quick_match()
+inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_complete) unite#sources#neocomplcache#start_complete()
 inoremap <Plug>ZenCodingAnchorizeSummary :call zencoding#anchorizeURL(1)a
 inoremap <Plug>ZenCodingAnchorizeURL :call zencoding#anchorizeURL(0)a
 inoremap <Plug>ZenCodingRemoveTag :call zencoding#removeTag()a
@@ -25,11 +23,11 @@ inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "inse
 inoremap <silent> <Plug>delimitMateMRightMouse =delimitMate#Finish(1)<RightMouse>
 inoremap <silent> <Plug>delimitMateMLeftMouse =delimitMate#Finish(1)<LeftMouse>
 inoremap <silent> <Plug>delimitMateDel =delimitMate#Del()
-inoremap <silent> <Plug>delimitMateS-Tab =delimitMate#JumpAny("\<S-Tab>")
+inoremap <silent> <Plug>delimitMateS-Tab =delimitMate#JumpAny()
 inoremap <silent> <Plug>delimitMateSpace =delimitMate#ExpandSpace()
 inoremap <silent> <Plug>delimitMateCR =delimitMate#ExpandReturn()
 inoremap <silent> <expr> <Plug>delimitMateS-BS delimitMate#WithinEmptyPair() ? "\=delimitMate#Del()\" : "\<S-BS>"
-inoremap <silent> <expr> <Plug>delimitMateBS delimitMate#WithinEmptyPair() ? "\=delimitMate#BS()\" : "\<BS>"
+inoremap <silent> <Plug>delimitMateBS =delimitMate#BS()
 inoremap <silent> <Plug>delimitMate` =delimitMate#QuoteDelim("\`")
 inoremap <silent> <Plug>delimitMate' =delimitMate#QuoteDelim("\'")
 inoremap <silent> <Plug>delimitMate" =delimitMate#QuoteDelim("\"")
@@ -44,7 +42,6 @@ nmap <silent> <NL> :wincmd j
 nmap <silent>  :wincmd k
 nmap <silent>  :wincmd l
 nnoremap  :call NumberToggle()
-nnoremap <silent>  :call repeat#wrap("\<C-R>",v:count)
 vmap c <Plug>ZenCodingCodePretty
 vmap m <Plug>ZenCodingMergeLines
 vmap D <Plug>ZenCodingBalanceTagOutwardVisual
@@ -61,10 +58,8 @@ nmap n <Plug>ZenCodingNext
 nmap D <Plug>ZenCodingBalanceTagOutwardNormal
 nmap d <Plug>ZenCodingBalanceTagInwardNormal
 nmap , <Plug>ZenCodingExpandNormal
-nnoremap <silent> . :call repeat#run(v:count)
 inoremap ï o
 xmap S <Plug>VSurround
-nnoremap <silent> U :call repeat#wrap('U',v:count)
 nmap \ca <Plug>NERDCommenterAltDelims
 xmap \cu <Plug>NERDCommenterUncomment
 nmap \cu <Plug>NERDCommenterUncomment
@@ -94,7 +89,6 @@ nmap cs <Plug>Csurround
 nmap ds <Plug>Dsurround
 nmap gx <Plug>NetrwBrowseX
 xmap gS <Plug>VgSurround
-nnoremap <silent> u :call repeat#wrap('u',v:count)
 nmap ySS <Plug>YSsurround
 nmap ySs <Plug>YSsurround
 nmap yss <Plug>Yssurround
@@ -176,8 +170,6 @@ let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
 set backspace=indent,eol,start
-set balloonexpr=SyntasticBalloonsExprNotifier()
-set cindent
 set completefunc=neocomplcache#complete#manual_complete
 set completeopt=preview,menuone
 set cryptmethod=blowfish
@@ -187,10 +179,9 @@ set fileencodings=ucs-bom,utf-8,default,latin1
 set helplang=en
 set hidden
 set ignorecase
-set operatorfunc=<SNR>52_opfunc
 set pastetoggle=<F2>
 set ruler
-set runtimepath=~/.vim,~/.vim/bundle/JavaScript-Indent,~/.vim/bundle/delimitMate,~/.vim/bundle/neocomplcache.vim,~/.vim/bundle/nerdcommenter,~/.vim/bundle/nerdtree,~/.vim/bundle/syntastic,~/.vim/bundle/taglist.vim,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/vim-cucumber,~/.vim/bundle/vim-endwise,~/.vim/bundle/vim-latex,~/.vim/bundle/vim-less,~/.vim/bundle/vim-rails,~/.vim/bundle/vim-repeat,~/.vim/bundle/vim-surround,~/.vim/bundle/zencoding-vim,/usr/local/share/vim/vim73/vimfiles,/usr/local/share/vim/vim73,/usr/local/share/vim/vim73/vimfiles/after,~/.vim/after
+set runtimepath=~/.vim,~/.vim/bundle/Javascript-Indent,~/.vim/bundle/delimitMate,~/.vim/bundle/neocomplcache.vim,~/.vim/bundle/nerdcommenter,~/.vim/bundle/nerdtree,~/.vim/bundle/syntastic,~/.vim/bundle/taglist.vim,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/vim-cucumber,~/.vim/bundle/vim-endwise,~/.vim/bundle/vim-latex,~/.vim/bundle/vim-less,~/.vim/bundle/vim-rails,~/.vim/bundle/vim-repeat,~/.vim/bundle/vim-surround,~/.vim/bundle/zencoding-vim,/usr/local/share/vim/vim73/vimfiles,/usr/local/share/vim/vim73,/usr/local/share/vim/vim73/vimfiles/after,~/.vim/after
 set secure
 set shiftwidth=2
 set showmatch
@@ -208,52 +199,14 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +21 client/views/posts/post_item.html
-badd +16 client/helpers/router.js
-badd +2 client/views/includes/header.html
-badd +1 client/helpers/client.js
-badd +1 client/helpers/handlebars.js
-badd +55 collections/posts.js
-badd +5 client/main.js
-badd +5 client/main.html
-badd +4 client/views/posts/post_page.html
-badd +37 client/views/posts/posts_list.js
-badd +73 client/views/posts/post_item.js
-badd +1 lib/permissions.js
-badd +6 client/views/includes/header.js
-badd +1 client/views/posts/posts_list.html
-badd +1 server/publications.js
-badd +2 server/permissionControl.js
-badd +2 client/views/posts/post_edit.js
-badd +2 client/views/posts/post_edit.html
-badd +9 client/views/posts/post_resolve.html
-badd +18 client/views/posts/post_resolve.js
-badd +1 server/fixtures.js
-badd +41 client/views/posts/post_body.js
-badd +14 client/views/posts/post_body.html
-badd +9 client/views/posts/post_submit.js
-badd +63 client/stylesheets/style.css
-badd +14 client/views/posts/post_submit.html
-badd +5 client/views/comments/comment_submit.html
-badd +7 client/views/comments/comment.html
-badd +12 collections/comments.js
-badd +7 collections/notifications.js
-badd +31 client/views/notifications/notifications.html
-badd +22 client/views/notifications/notifications.js
-badd +11 client/views/comments/comment_submit.js
-badd +746 client/stylesheets/flat-ui.css
-badd +11 client/views/posts/post_page.js
+badd +50 client/views/posts/posts_list.js
+badd +13 client/main.js
+badd +0 client/views/posts/post_item.js
 silent! argdel *
-edit client/views/posts/posts_list.html
+edit client/views/posts/post_item.js
 set splitbelow splitright
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 19 + 20) / 41)
-exe '2resize ' . ((&lines * 19 + 20) / 41)
 argglobal
 let s:cpo_save=&cpo
 set cpo&vim
@@ -275,168 +228,7 @@ imap <buffer> <Del> <Plug>delimitMateDel
 imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
 imap <buffer> <S-BS> <Plug>delimitMateS-BS
 imap <buffer> <BS> <Plug>delimitMateBS
-inoremap <buffer> <Plug>delimitMateJumpMany =len(b:_l_delimitMate_buffer) ? delimitMate#Finish(0) : delimitMate#JumpMany()
-imap <buffer> <C-ScrollWheelRight> <Plug>delimitMateC-ScrollWheelRight
-imap <buffer> <S-ScrollWheelRight> <Plug>delimitMateS-ScrollWheelRight
-imap <buffer> <ScrollWheelRight> <Plug>delimitMateScrollWheelRight
-imap <buffer> <C-ScrollWheelLeft> <Plug>delimitMateC-ScrollWheelLeft
-imap <buffer> <S-ScrollWheelLeft> <Plug>delimitMateS-ScrollWheelLeft
-imap <buffer> <ScrollWheelLeft> <Plug>delimitMateScrollWheelLeft
-imap <buffer> <C-ScrollWheelDown> <Plug>delimitMateC-ScrollWheelDown
-imap <buffer> <S-ScrollWheelDown> <Plug>delimitMateS-ScrollWheelDown
-imap <buffer> <ScrollWheelDown> <Plug>delimitMateScrollWheelDown
-imap <buffer> <C-ScrollWheelUp> <Plug>delimitMateC-ScrollWheelUp
-imap <buffer> <S-ScrollWheelUp> <Plug>delimitMateS-ScrollWheelUp
-imap <buffer> <ScrollWheelUp> <Plug>delimitMateScrollWheelUp
-imap <buffer> <silent> g <Plug>delimitMateJumpMany
-imap <buffer> " <Plug>delimitMate"
-imap <buffer> ' <Plug>delimitMate'
-imap <buffer> ( <Plug>delimitMate(
-imap <buffer> ) <Plug>delimitMate)
-imap <buffer> < <Plug>delimitMate<
-imap <buffer> > <Plug>delimitMate>
-imap <buffer> [ <Plug>delimitMate[
-imap <buffer> ] <Plug>delimitMate]
-imap <buffer> ` <Plug>delimitMate`
-imap <buffer> { <Plug>delimitMate{
-imap <buffer> } <Plug>delimitMate}
-let &cpo=s:cpo_save
-unlet s:cpo_save
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal balloonexpr=
-setlocal nobinary
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal cindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=
-setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
-setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
-setlocal commentstring=<!--%s-->
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=neocomplcache#complete#manual_complete
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-setlocal nocursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=
-setlocal expandtab
-if &filetype != 'html'
-setlocal filetype=html
-endif
-setlocal foldcolumn=0
-setlocal foldenable
-setlocal foldexpr=0
-setlocal foldignore=#
-setlocal foldlevel=0
-setlocal foldmarker={{{,}}}
-setlocal foldmethod=manual
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=tcq
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=2
-setlocal imsearch=2
-setlocal include=
-setlocal includeexpr=
-setlocal indentexpr=HtmlIndentGetter(v:lnum)
-setlocal indentkeys=o,O,*<Return>,<>>,{,}
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal nolist
-setlocal makeprg=
-setlocal matchpairs=(:),{:},[:],<:>
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=octal,hex
-set number
-setlocal nonumber
-set numberwidth=3
-setlocal numberwidth=3
-setlocal omnifunc=htmlcomplete#CompleteTags
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-set relativenumber
-setlocal relativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=2
-setlocal noshortname
-setlocal smartindent
-setlocal softtabstop=2
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=
-setlocal suffixesadd=
-setlocal swapfile
-setlocal synmaxcol=3000
-if &syntax != 'html'
-setlocal syntax=html
-endif
-setlocal tabstop=2
-setlocal tags=
-setlocal textwidth=0
-setlocal thesaurus=
-setlocal noundofile
-setlocal nowinfixheight
-setlocal nowinfixwidth
-set nowrap
-setlocal nowrap
-setlocal wrapmargin=0
-silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 9) / 19)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-1
-normal! 0
-wincmd w
-argglobal
-edit client/views/posts/posts_list.js
-let s:cpo_save=&cpo
-set cpo&vim
-imap <buffer> <RightMouse> <Plug>delimitMateMRightMouse
-imap <buffer> <LeftMouse> <Plug>delimitMateMLeftMouse
-imap <buffer> <S-Up> <Plug>delimitMateS-Up
-imap <buffer> <S-Down> <Plug>delimitMateS-Down
-imap <buffer> <PageDown> <Plug>delimitMatePageDown
-imap <buffer> <PageUp> <Plug>delimitMatePageUp
-imap <buffer> <Down> <Plug>delimitMateDown
-imap <buffer> <Up> <Plug>delimitMateUp
-imap <buffer> <C-Right> <Plug>delimitMateC-Right
-imap <buffer> <C-Left> <Plug>delimitMateC-Left
-imap <buffer> <End> <Plug>delimitMateEnd
-imap <buffer> <Home> <Plug>delimitMateHome
-imap <buffer> <Right> <Plug>delimitMateRight
-imap <buffer> <Left> <Plug>delimitMateLeft
-imap <buffer> <Del> <Plug>delimitMateDel
-imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
-imap <buffer> <S-BS> <Plug>delimitMateS-BS
-imap <buffer> <BS> <Plug>delimitMateBS
-inoremap <buffer> <Plug>delimitMateJumpMany =len(b:_l_delimitMate_buffer) ? delimitMate#Finish(0) : delimitMate#JumpMany()
+inoremap <buffer> <Plug>delimitMateJumpMany =len(delimitMate#Get('buffer')) ? delimitMate#Finish(0) : delimitMate#JumpMany()
 imap <buffer> <C-ScrollWheelRight> <Plug>delimitMateC-ScrollWheelRight
 imap <buffer> <S-ScrollWheelRight> <Plug>delimitMateS-ScrollWheelRight
 imap <buffer> <ScrollWheelRight> <Plug>delimitMateScrollWheelRight
@@ -566,16 +358,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 50 - ((13 * winheight(0) + 9) / 19)
+let s:l = 117 - ((32 * winheight(0) + 20) / 40)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-50
-normal! 0
-wincmd w
-2wincmd w
-exe '1resize ' . ((&lines * 19 + 20) / 41)
-exe '2resize ' . ((&lines * 19 + 20) / 41)
+117
+normal! 08l
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
