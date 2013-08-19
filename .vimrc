@@ -202,6 +202,10 @@ let g:Tex_Leader2 = ',tex'
 let Tex_FoldedSections=""
 let Tex_FoldedEnvironments=""
 let Tex_FoldedMisc=""
+let g:Imap_FreezeImap=1
+let g:Tex_Leader = '`tex'
+let g:Tex_Leader2 = ',tex'
+nnoremap <SID>I_won’t_ever_type_this <Plug>IMAP_JumpForward
 
 " Color Theme
 "set background=dark

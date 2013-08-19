@@ -1,3 +1,10 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_cnt =8
 let g:netrw_dirhist_1='/home/ling/Documents/Interview/palantir'
+let g:netrw_dirhist_2='/etc/apt/sources.list.d'
+let g:netrw_dirhist_3='/home/ling/.vim/bundle'
+let g:netrw_dirhist_4='/home/ling/Documents/yalla/app/views/layouts'
+let g:netrw_dirhist_5='/home/ling/Temp/gazelle/php'
+let g:netrw_dirhist_6='/home/ling/Documents/Linguistic-Explorer'
+let g:netrw_dirhist_7='/home/ling/Documents/alphabetical_paginate'
+let g:netrw_dirhist_8='/home/ling/Documents/gazelle-test/config/public'
