@@ -212,3 +212,16 @@ nnoremap <SID>I_won’t_ever_type_this <Plug>IMAP_JumpForward
 "set t_Co=256
 "colorscheme solarized
 "let g:solarized_termcolors=256
+
+" Get coffeelint errors in the vim quickfix menu
+" requires coffeelint to be installed and in the path
+" http://www.coffeelint.org/
+ 
+" lint the current file
+function! CoffeeLintFile()
+  let current = fnamemodify(expand("%"), ':p')
+  exec ":!coffeelint " . current 
+endfunction
+ 
+" These are my shortcuts, you will probably want your own
+map <leader>cx :call CoffeeLintFile()<cr>
