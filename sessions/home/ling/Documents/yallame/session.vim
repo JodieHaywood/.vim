@@ -2,6 +2,11 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
+inoremap <silent> <Plug>(neocomplcache_start_omni_complete) 
+inoremap <silent> <Plug>(neocomplcache_start_auto_complete_no_select) 
+inoremap <silent> <Plug>(neocomplcache_start_auto_complete) =neocomplcache#mappings#popup_post()
+inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_quick_match) unite#sources#neocomplcache#start_quick_match()
+inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_complete) unite#sources#neocomplcache#start_complete()
 inoremap <Plug>ZenCodingAnchorizeSummary :call zencoding#anchorizeURL(1)a
 inoremap <Plug>ZenCodingAnchorizeURL :call zencoding#anchorizeURL(0)a
 inoremap <Plug>ZenCodingRemoveTag :call zencoding#removeTag()a
@@ -180,16 +185,19 @@ let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
 set backspace=indent,eol,start
+set completefunc=neocomplcache#complete#manual_complete
+set completeopt=preview,menuone
 set cryptmethod=blowfish
-set expandtab
+set errorformat=Error:\ In\ %f\\,\ %m\ on\ line\ %l,Error:\ In\ %f\\,\ Parse\ error\ on\ line\ %l:\ %m,SyntaxError:\ In\ %f\\,\ %m,%-G%.%#
 set exrc
 set fileencodings=ucs-bom,utf-8,default,latin1
 set helplang=en
 set hidden
 set ignorecase
+set isident=@,48-57,_,192-255,$
 set pastetoggle=<F2>
 set ruler
-set runtimepath=~/.vim,~/.vim/bundle/2283673,~/.vim/bundle/Javascript-Indent,~/.vim/bundle/command-t,~/.vim/bundle/delimitMate,~/.vim/bundle/neocomplcache.vim,~/.vim/bundle/nerdcommenter,~/.vim/bundle/nerdtree,~/.vim/bundle/syntastic,~/.vim/bundle/taglist.vim,~/.vim/bundle/vim-coffee-script,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/vim-cucumber,~/.vim/bundle/vim-endwise,~/.vim/bundle/vim-latex,~/.vim/bundle/vim-less,~/.vim/bundle/vim-literate-coffeescript,~/.vim/bundle/vim-rails,~/.vim/bundle/vim-repeat,~/.vim/bundle/vim-slime,~/.vim/bundle/vim-surround,~/.vim/bundle/zencoding-vim,/usr/local/share/vim/vim73/vimfiles,/usr/local/share/vim/vim73,/usr/local/share/vim/vim73/vimfiles/after,~/.vim/bundle/vim-coffee-script/after,~/.vim/after
+set runtimepath=~/.vim,~/.vim/bundle/Javascript-Indent,~/.vim/bundle/command-t,~/.vim/bundle/delimitMate,~/.vim/bundle/emmet-vim,~/.vim/bundle/neocomplcache.vim,~/.vim/bundle/nerdcommenter,~/.vim/bundle/nerdtree,~/.vim/bundle/syntastic,~/.vim/bundle/taglist.vim,~/.vim/bundle/vim-coffee-script,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/vim-cucumber,~/.vim/bundle/vim-endwise,~/.vim/bundle/vim-latex,~/.vim/bundle/vim-less,~/.vim/bundle/vim-literate-coffeescript,~/.vim/bundle/vim-literate-coffeescript.git,~/.vim/bundle/vim-rails,~/.vim/bundle/vim-repeat,~/.vim/bundle/vim-slime,~/.vim/bundle/vim-stylus,~/.vim/bundle/vim-surround,~/.vim/bundle/zencoding-vim,/usr/local/share/vim/vim73/vimfiles,/usr/local/share/vim/vim73,/usr/local/share/vim/vim73/vimfiles/after,~/.vim/bundle/vim-coffee-script/after,~/.vim/after
 set secure
 set shiftwidth=2
 set showmatch
@@ -207,16 +215,16 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 client/stylesheets/style.styl
+badd +0 client/subscriptions.litcoffee
+badd +0 ~/.vimrc
 silent! argdel *
-edit client/stylesheets/style.styl
+edit client/subscriptions.litcoffee
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
 argglobal
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <buffer> <Plug>delimitMateJumpMany =len(delimitMate#Get('buffer')) ? delimitMate#Finish(0) : delimitMate#JumpMany()
 imap <buffer> <RightMouse> <Plug>delimitMateMRightMouse
 imap <buffer> <LeftMouse> <Plug>delimitMateMLeftMouse
 imap <buffer> <S-Up> <Plug>delimitMateS-Up
@@ -225,6 +233,17 @@ imap <buffer> <PageDown> <Plug>delimitMatePageDown
 imap <buffer> <PageUp> <Plug>delimitMatePageUp
 imap <buffer> <Down> <Plug>delimitMateDown
 imap <buffer> <Up> <Plug>delimitMateUp
+imap <buffer> <C-Right> <Plug>delimitMateC-Right
+imap <buffer> <C-Left> <Plug>delimitMateC-Left
+imap <buffer> <End> <Plug>delimitMateEnd
+imap <buffer> <Home> <Plug>delimitMateHome
+imap <buffer> <Right> <Plug>delimitMateRight
+imap <buffer> <Left> <Plug>delimitMateLeft
+imap <buffer> <Del> <Plug>delimitMateDel
+imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
+imap <buffer> <S-BS> <Plug>delimitMateS-BS
+imap <buffer> <BS> <Plug>delimitMateBS
+inoremap <buffer> <Plug>delimitMateJumpMany =len(delimitMate#Get('buffer')) ? delimitMate#Finish(0) : delimitMate#JumpMany()
 imap <buffer> <C-ScrollWheelRight> <Plug>delimitMateC-ScrollWheelRight
 imap <buffer> <S-ScrollWheelRight> <Plug>delimitMateS-ScrollWheelRight
 imap <buffer> <ScrollWheelRight> <Plug>delimitMateScrollWheelRight
@@ -237,16 +256,6 @@ imap <buffer> <ScrollWheelDown> <Plug>delimitMateScrollWheelDown
 imap <buffer> <C-ScrollWheelUp> <Plug>delimitMateC-ScrollWheelUp
 imap <buffer> <S-ScrollWheelUp> <Plug>delimitMateS-ScrollWheelUp
 imap <buffer> <ScrollWheelUp> <Plug>delimitMateScrollWheelUp
-imap <buffer> <C-Right> <Plug>delimitMateC-Right
-imap <buffer> <C-Left> <Plug>delimitMateC-Left
-imap <buffer> <End> <Plug>delimitMateEnd
-imap <buffer> <Home> <Plug>delimitMateHome
-imap <buffer> <Right> <Plug>delimitMateRight
-imap <buffer> <Left> <Plug>delimitMateLeft
-imap <buffer> <Del> <Plug>delimitMateDel
-imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
-imap <buffer> <S-BS> <Plug>delimitMateS-BS
-imap <buffer> <BS> <Plug>delimitMateBS
 imap <buffer> <silent> g <Plug>delimitMateJumpMany
 imap <buffer> " <Plug>delimitMate"
 imap <buffer> ' <Plug>delimitMate'
@@ -272,12 +281,12 @@ setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
-setlocal commentstring=/*%s*/
+setlocal comments=:#
+setlocal commentstring=#\ %s
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
-setlocal completefunc=
+setlocal completefunc=neocomplcache#complete#auto_complete
 setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
@@ -288,9 +297,9 @@ setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
 setlocal errorformat=
-setlocal expandtab
-if &filetype != ''
-setlocal filetype=
+setlocal noexpandtab
+if &filetype != 'litcoffee'
+setlocal filetype=litcoffee
 endif
 setlocal foldcolumn=0
 setlocal foldenable
@@ -303,17 +312,190 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=tcq
+setlocal formatoptions=croqlt
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
 setlocal iminsert=2
 setlocal imsearch=2
 setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal indentexpr=GetLitCoffeeIndent()
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0],0),0.,=else,=when,=catch,=finally
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal nolist
+setlocal makeprg=coffee\ -c\ \ $*\ client/subscriptions.litcoffee
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+set number
+setlocal nonumber
+set numberwidth=3
+setlocal numberwidth=3
+setlocal omnifunc=javascriptcomplete#CompleteJS
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal relativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal smartindent
+setlocal softtabstop=2
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'litcoffee'
+setlocal syntax=litcoffee
+endif
+setlocal tabstop=2
+setlocal tags=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal nowinfixheight
+setlocal nowinfixwidth
+set nowrap
+setlocal nowrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 29 - ((28 * winheight(0) + 17) / 34)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+29
+normal! 02l
+tabedit ~/.vimrc
+set splitbelow splitright
+wincmd t
+set winheight=1 winwidth=1
+argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+imap <buffer> <RightMouse> <Plug>delimitMateMRightMouse
+imap <buffer> <LeftMouse> <Plug>delimitMateMLeftMouse
+imap <buffer> <S-Up> <Plug>delimitMateS-Up
+imap <buffer> <S-Down> <Plug>delimitMateS-Down
+imap <buffer> <PageDown> <Plug>delimitMatePageDown
+imap <buffer> <PageUp> <Plug>delimitMatePageUp
+imap <buffer> <Down> <Plug>delimitMateDown
+imap <buffer> <Up> <Plug>delimitMateUp
+imap <buffer> <C-Right> <Plug>delimitMateC-Right
+imap <buffer> <C-Left> <Plug>delimitMateC-Left
+imap <buffer> <End> <Plug>delimitMateEnd
+imap <buffer> <Home> <Plug>delimitMateHome
+imap <buffer> <Right> <Plug>delimitMateRight
+imap <buffer> <Left> <Plug>delimitMateLeft
+imap <buffer> <Del> <Plug>delimitMateDel
+imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
+imap <buffer> <S-BS> <Plug>delimitMateS-BS
+imap <buffer> <BS> <Plug>delimitMateBS
+inoremap <buffer> <Plug>delimitMateJumpMany =len(delimitMate#Get('buffer')) ? delimitMate#Finish(0) : delimitMate#JumpMany()
+imap <buffer> <C-ScrollWheelRight> <Plug>delimitMateC-ScrollWheelRight
+imap <buffer> <S-ScrollWheelRight> <Plug>delimitMateS-ScrollWheelRight
+imap <buffer> <ScrollWheelRight> <Plug>delimitMateScrollWheelRight
+imap <buffer> <C-ScrollWheelLeft> <Plug>delimitMateC-ScrollWheelLeft
+imap <buffer> <S-ScrollWheelLeft> <Plug>delimitMateS-ScrollWheelLeft
+imap <buffer> <ScrollWheelLeft> <Plug>delimitMateScrollWheelLeft
+imap <buffer> <C-ScrollWheelDown> <Plug>delimitMateC-ScrollWheelDown
+imap <buffer> <S-ScrollWheelDown> <Plug>delimitMateS-ScrollWheelDown
+imap <buffer> <ScrollWheelDown> <Plug>delimitMateScrollWheelDown
+imap <buffer> <C-ScrollWheelUp> <Plug>delimitMateC-ScrollWheelUp
+imap <buffer> <S-ScrollWheelUp> <Plug>delimitMateS-ScrollWheelUp
+imap <buffer> <ScrollWheelUp> <Plug>delimitMateScrollWheelUp
+vnoremap <buffer> <silent> [" :exe "normal! gv"|call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
+nnoremap <buffer> <silent> [" :call search('\%(^\s*".*\n\)\%(^\s*"\)\@!', "bW")
+vnoremap <buffer> <silent> [] m':exe "normal! gv"|call search('^\s*endf*\%[unction]\>', "bW")
+nnoremap <buffer> <silent> [] m':call search('^\s*endf*\%[unction]\>', "bW")
+vnoremap <buffer> <silent> [[ m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "bW")
+nnoremap <buffer> <silent> [[ m':call search('^\s*fu\%[nction]\>', "bW")
+vnoremap <buffer> <silent> ]" :exe "normal! gv"|call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
+nnoremap <buffer> <silent> ]" :call search('^\(\s*".*\n\)\@<!\(\s*"\)', "W")
+vnoremap <buffer> <silent> ][ m':exe "normal! gv"|call search('^\s*endf*\%[unction]\>', "W")
+nnoremap <buffer> <silent> ][ m':call search('^\s*endf*\%[unction]\>', "W")
+vnoremap <buffer> <silent> ]] m':exe "normal! gv"|call search('^\s*fu\%[nction]\>', "W")
+nnoremap <buffer> <silent> ]] m':call search('^\s*fu\%[nction]\>', "W")
+imap <buffer> <silent> g <Plug>delimitMateJumpMany
+imap <buffer> " <Plug>delimitMate"
+imap <buffer> ' <Plug>delimitMate'
+imap <buffer> ( <Plug>delimitMate(
+imap <buffer> ) <Plug>delimitMate)
+imap <buffer> [ <Plug>delimitMate[
+imap <buffer> ] <Plug>delimitMate]
+imap <buffer> ` <Plug>delimitMate`
+imap <buffer> { <Plug>delimitMate{
+imap <buffer> } <Plug>delimitMate}
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal balloonexpr=
+setlocal nobinary
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=sO:\"\ -,mO:\"\ \ ,eO:\"\",:\"
+setlocal commentstring=\"%s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=neocomplcache#complete#manual_complete
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'vim'
+setlocal filetype=vim
+endif
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=2
+setlocal imsearch=2
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=GetVimIndent()
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,=end,=else,=cat,=fina,=END,0\\
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255,:,#
 setlocal keywordprg=
 setlocal nolinebreak
 setlocal nolisp
@@ -324,7 +506,7 @@ setlocal modeline
 setlocal modifiable
 setlocal nrformats=octal,hex
 set number
-setlocal nonumber
+setlocal number
 set numberwidth=3
 setlocal numberwidth=3
 setlocal omnifunc=
@@ -350,12 +532,12 @@ setlocal statusline=
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != ''
-setlocal syntax=
+if &syntax != 'vim'
+setlocal syntax=vim
 endif
 setlocal tabstop=2
 setlocal tags=
-setlocal textwidth=0
+setlocal textwidth=78
 setlocal thesaurus=
 setlocal noundofile
 setlocal nowinfixheight
@@ -364,7 +546,7 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 17) / 35)
+let s:l = 1 - ((0 * winheight(0) + 17) / 34)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt

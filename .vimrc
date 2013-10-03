@@ -53,10 +53,6 @@ set pastetoggle=<F2> " allows F2 to be mapped to turn on and off pasting in vim
 " maps F3 to open the file explorer
 map <F3> :NERDTreeToggle<CR> 
 
-" remap
-let g:NERDTreeMapOpenSplit = 'o'
-let g:NERDTreeMapActivateNode = '<CR>'
-
 function! StartUp()
     if 0 == argc()
         NERDTree
