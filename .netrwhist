@@ -1,8 +1,8 @@
 let g:netrw_dirhistmax  =10
 let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/home/ling/Documents/yallame/server'
-let g:netrw_dirhist_2='/home/ling/.ssh'
-let g:netrw_dirhist_3='/home/ling/Documents/yallame'
-let g:netrw_dirhist_4='/home/ling/.ssh'
-let g:netrw_dirhist_5='/home/ling/Documents/project-euler/351'
-let g:netrw_dirhist_6='/home/ling/.vim/bundle/vim-literate-coffeescript/ftplugin'
+let g:netrw_dirhist_1='/home/ling/Documents/alphabetical_paginate/pkg'
+let g:netrw_dirhist_2='/home/ling/Documents/alphabetical_paginate/lib'
+let g:netrw_dirhist_3='/home/ling/Documents/lingtalk/content/themes'
+let g:netrw_dirhist_4='/home/ling/Documents/meteor-skeleton'
+let g:netrw_dirhist_5='/home/ling/Desktop/test'
+let g:netrw_dirhist_6='/home/ling/.vim'

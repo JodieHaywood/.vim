@@ -20,7 +20,6 @@ set backspace=indent,eol,start " make backspace behave better
 set smartindent " turns on file type indenting
 set autoindent " turns on auto indenting
 set showmatch " set show matching parenthesis
-set ignorecase " ignore case when searching
 set expandtab
 set tabstop=2
 set shiftwidth=2
@@ -28,10 +27,17 @@ set softtabstop=2
 set ruler
 set smarttab
 
+" key miss catches
+command WQ wq
+command Wq wq
+command W w
+command Q q
+
 " line numbers
 set number
 set numberwidth=3
-highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE
+      \ guifg=DarkGrey guibg=NONE
 
 " tab management
 set splitbelow
@@ -45,6 +51,17 @@ nmap <silent> <C-Left> <C-W><
 nmap <silent> <C-Down> <C-W>-
 nmap <silent> <C-Up> <C-W>+
 
+" NERDTree Remap
+let g:NERDTreeMapOpenVSplit = "u"
+
+
+" ctrlp remap
+let g:ctrlp_prompt_mappings = {
+  \ 'AcceptSelection("h")': ['<c-i>'],
+  \ 'AcceptSelection("v")': ['<c-u>']
+  \ }
+
+
 " enable file type detection and indent appropriately 
 filetype plugin indent on
 
@@ -53,10 +70,6 @@ set pastetoggle=<F2> " allows F2 to be mapped to turn on and off pasting in vim
 " maps F3 to open the file explorer
 map <F3> :NERDTreeToggle<CR> 
 
-" remap open key to be consistent from command-t
-let g:NERDTreeMapOpenSplit = "o"
-let g:NERDTreeMapActivateNode = "i"
-
 function! StartUp()
     if 0 == argc()
         NERDTree
@@ -64,13 +77,6 @@ function! StartUp()
 endfunction
 
 autocmd VimEnter * call StartUp()
-
-
-" using ctags
-let Tlist_Ctags_Cmd = "/usr/bin/ctags"
-let Tlist_WinWidth = 50
-map <F4> :TlistToggle<cr>
-map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 " encryption
 set cm=blowfish
@@ -138,42 +144,6 @@ au VimLeave * :call UpdateSession()
 map <leader>m :call MakeSession()<CR>
 map <leader>n :call LoadSession()<CR>
 
-" neocomplete
-let g:acp_enableAtStartup = 0
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_min_syntax_length = 3
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplcache_dictionary_filetype_lists = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string()
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-
-function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
-endfunction
-
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-
 " delimitMate options
 let delimitMateBackspace = 1
 
@@ -211,16 +181,6 @@ let g:Tex_Leader = '`tex'
 let g:Tex_Leader2 = ',tex'
 nnoremap <SID>I_won’t_ever_type_this <Plug>IMAP_JumpForward
 
-" Color Theme
-"set background=dark
-"set t_Co=256
-"colorscheme solarized
-"let g:solarized_termcolors=256
-
-" Get coffeelint errors in the vim quickfix menu
-" requires coffeelint to be installed and in the path
-" http://www.coffeelint.org/
- 
 " lint the current file
 function! CoffeeLintFile()
   let current = fnamemodify(expand("%"), ':p')
@@ -229,9 +189,3 @@ endfunction
  
 " These are my shortcuts, you will probably want your own
 map <leader>cx :call CoffeeLintFile()<cr>
-
-" Command-T
-let g:CommandTAcceptSelectionSplitMap='<C-o>'
-let g:CommandTMaxHeight = 10
-let g:CommandTMinHeight = 10
-let g:CommandTMinHeight = 10

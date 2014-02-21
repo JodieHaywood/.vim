@@ -2,11 +2,64 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
+imap <silent> <Plug>IMAP_JumpBack =IMAP_Jumpfunc('b', 0)
+imap <silent> <Plug>IMAP_JumpForward =IMAP_Jumpfunc('', 0)
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
+inoremap <Plug>(EmmetAnchorizeSummary) =emmet#anchorizeURL(1)
+inoremap <Plug>(EmmetAnchorizeURL) =emmet#anchorizeURL(0)
+inoremap <Plug>(EmmetRemoveTag) =emmet#removeTag()
+inoremap <Plug>(EmmetSplitJoinTag) :call emmet#splitJoinTag()
+inoremap <Plug>(EmmetToggleComment) =emmet#toggleComment()
+inoremap <Plug>(EmmetImageSize) =emmet#imageSize()
+inoremap <Plug>(EmmetMovePrev) :call emmet#moveNextPrev(1)
+inoremap <Plug>(EmmetMoveNext) :call emmet#moveNextPrev(0)
+inoremap <Plug>(EmmetBalanceTagOutward) :call emmet#balanceTag(-1)
+inoremap <Plug>(EmmetBalanceTagInward) :call emmet#balanceTag(1)
+inoremap <Plug>(EmmetExpandWord) =emmet#expandAbbr(1,"")
+inoremap <Plug>(EmmetExpandAbbr) =emmet#expandAbbr(0,"")<Right>
+inoremap <silent> <Plug>delimitMateMRightMouse =delimitMate#Finish(1)<RightMouse>
+inoremap <silent> <Plug>delimitMateMLeftMouse =delimitMate#Finish(1)<LeftMouse>
+inoremap <silent> <Plug>delimitMateDel =delimitMate#Del()
+inoremap <silent> <Plug>delimitMateS-Tab =delimitMate#JumpAny()
+inoremap <silent> <Plug>delimitMateSpace =delimitMate#ExpandSpace()
+inoremap <silent> <Plug>delimitMateCR =delimitMate#ExpandReturn()
+inoremap <silent> <expr> <Plug>delimitMateS-BS delimitMate#WithinEmptyPair() ? "\=delimitMate#Del()\" : "\<S-BS>"
+inoremap <silent> <Plug>delimitMateBS =delimitMate#BS()
+inoremap <silent> <Plug>delimitMate` =delimitMate#QuoteDelim("\`")
+inoremap <silent> <Plug>delimitMate' =delimitMate#QuoteDelim("\'")
+inoremap <silent> <Plug>delimitMate" =delimitMate#QuoteDelim("\"")
+inoremap <silent> <Plug>delimitMate] =delimitMate#JumpOut("\]")
+inoremap <silent> <Plug>delimitMate} =delimitMate#JumpOut("\}")
+inoremap <silent> <Plug>delimitMate) =delimitMate#JumpOut("\)")
+inoremap <silent> <Plug>delimitMate[ [=delimitMate#ParenDelim("]")
+inoremap <silent> <Plug>delimitMate{ {=delimitMate#ParenDelim("}")
+inoremap <silent> <Plug>delimitMate( (=delimitMate#ParenDelim(")")
+nmap v <Plug>SlimeConfig
+nmap  <Plug>SlimeParagraphSend
+xmap  <Plug>SlimeRegionSend
 nmap <silent>  :wincmd h
+vmap <NL> <Plug>IMAP_JumpForward
 nmap <silent> <NL> :wincmd j
 nmap <silent>  :wincmd k
 nmap <silent>  :wincmd l
+nnoremap  :call NumberToggle()
+vmap c <Plug>(EmmetCodePretty)
+vmap m <Plug>(EmmetMergeLines)
+nmap A <Plug>(EmmetAnchorizeSummary)
+nmap a <Plug>(EmmetAnchorizeURL)
+nmap k <Plug>(EmmetRemoveTag)
+nmap j <Plug>(EmmetSplitJoinTag)
+nmap / <Plug>(EmmetToggleComment)
+nmap i <Plug>(EmmetImageSize)
+nmap N <Plug>(EmmetMovePrev)
+nmap n <Plug>(EmmetMoveNext)
+vmap D <Plug>(EmmetBalanceTagOutward)
+nmap D <Plug>(EmmetBalanceTagOutward)
+vmap d <Plug>(EmmetBalanceTagInward)
+nmap d <Plug>(EmmetBalanceTagInward)
+nmap ; <Plug>(EmmetExpandWord)
+vmap , <Plug>(EmmetExpandAbbr)
+nmap , <Plug>(EmmetExpandAbbr)
 inoremap ï o
 xmap S <Plug>VSurround
 nmap \ca <Plug>NERDCommenterAltDelims
@@ -32,6 +85,10 @@ xmap \c  <Plug>NERDCommenterToggle
 nmap \c  <Plug>NERDCommenterToggle
 xmap \cc <Plug>NERDCommenterComment
 nmap \cc <Plug>NERDCommenterComment
+nnoremap <silent> \b :CommandTBuffer
+nnoremap <silent> \t :CommandT
+map \cx :call CoffeeLintFile()
+map \n :call LoadSession()
 map \m :call MakeSession()
 nmap cs <Plug>Csurround
 nmap ds <Plug>Dsurround
@@ -44,6 +101,12 @@ nmap yS <Plug>YSurround
 nmap ys <Plug>Ysurround
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
 nnoremap <silent> <Plug>SurroundRepeat .
+vmap <silent> <Plug>IMAP_JumpBack `<i=IMAP_Jumpfunc('b', 0)
+vmap <silent> <Plug>IMAP_JumpForward i=IMAP_Jumpfunc('', 0)
+vmap <silent> <Plug>IMAP_DeleteAndJumpBack "_<Del>i=IMAP_Jumpfunc('b', 0)
+vmap <silent> <Plug>IMAP_DeleteAndJumpForward "_<Del>i=IMAP_Jumpfunc('', 0)
+nmap <silent> <Plug>IMAP_JumpBack i=IMAP_Jumpfunc('b', 0)
+nmap <silent> <Plug>IMAP_JumpForward i=IMAP_Jumpfunc('', 0)
 xnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("x", "Uncomment")
 nnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("n", "Uncomment")
 xnoremap <silent> <Plug>NERDCommenterAlignBoth :call NERDComment("x", "AlignBoth")
@@ -66,22 +129,59 @@ xnoremap <silent> <Plug>NERDCommenterToggle :call NERDComment("x", "Toggle")
 nnoremap <silent> <Plug>NERDCommenterToggle :call NERDComment("n", "Toggle")
 xnoremap <silent> <Plug>NERDCommenterComment :call NERDComment("x", "Comment")
 nnoremap <silent> <Plug>NERDCommenterComment :call NERDComment("n", "Comment")
+vnoremap <Plug>(EmmetCodePretty) :call emmet#codePretty()
+vnoremap <Plug>(EmmetMergeLines) :call emmet#mergeLines()
+nnoremap <Plug>(EmmetAnchorizeSummary) :call emmet#anchorizeURL(1)
+nnoremap <Plug>(EmmetAnchorizeURL) :call emmet#anchorizeURL(0)
+nnoremap <Plug>(EmmetRemoveTag) :call emmet#removeTag()
+nnoremap <Plug>(EmmetSplitJoinTag) :call emmet#splitJoinTag()
+nnoremap <Plug>(EmmetToggleComment) :call emmet#toggleComment()
+nnoremap <Plug>(EmmetImageSize) :call emmet#imageSize()
+nnoremap <Plug>(EmmetMovePrev) :call emmet#moveNextPrev(1)
+nnoremap <Plug>(EmmetMoveNext) :call emmet#moveNextPrev(0)
+vnoremap <Plug>(EmmetBalanceTagOutward) :call emmet#balanceTag(-2)
+nnoremap <Plug>(EmmetBalanceTagOutward) :call emmet#balanceTag(-1)
+vnoremap <Plug>(EmmetBalanceTagInward) :call emmet#balanceTag(2)
+nnoremap <Plug>(EmmetBalanceTagInward) :call emmet#balanceTag(1)
+nnoremap <Plug>(EmmetExpandWord) :call emmet#expandAbbr(1,"")
+vnoremap <Plug>(EmmetExpandAbbr) :call emmet#expandAbbr(2,"")
+nnoremap <Plug>(EmmetExpandAbbr) :call emmet#expandAbbr(3,"")
+nnoremap <SNR>1_I_won’t_ever_type_this <Plug>IMAP_JumpForward
+map <F3> :NERDTreeToggle 
 nmap <silent> <C-Up> +
 nmap <silent> <C-Down> -
 nmap <silent> <C-Left> <
 nmap <silent> <C-Right> >
+inoremap <expr>  neocomplcache#cancel_popup()
 imap S <Plug>ISurround
 imap s <Plug>Isurround
-imap 	 
-imap  <Plug>DiscretionaryEnd
+inoremap <expr>  neocomplcache#undo_completion()
+inoremap <expr>  neocomplcache#smart_close_popup()."\"
+inoremap <expr> 	 pumvisible() ? "\" : "\	"
+imap <NL> <Plug>IMAP_JumpForward
+inoremap <expr>  neocomplcache#complete_common_string()
 imap  <Plug>Isurround
-imap  <Plug>AlwaysEnd
+imap A <Plug>(EmmetAnchorizeSummary)
+imap a <Plug>(EmmetAnchorizeURL)
+imap k <Plug>(EmmetRemoveTag)
+imap j <Plug>(EmmetSplitJoinTag)
+imap / <Plug>(EmmetToggleComment)
+imap i <Plug>(EmmetImageSize)
+imap N <Plug>(EmmetMovePrev)
+imap n <Plug>(EmmetMoveNext)
+imap D <Plug>(EmmetBalanceTagOutward)
+imap d <Plug>(EmmetBalanceTagInward)
+imap ; <Plug>(EmmetExpandWord)
+imap , <Plug>(EmmetExpandAbbr)
+inoremap <expr>  neocomplcache#close_popup()
+inoremap (; ();hi
 imap jj 
+inoremap { {}O	
 let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
 set backspace=indent,eol,start
-set balloonexpr=SyntasticBalloonsExprNotifier()
+set completeopt=menu
 set cryptmethod=blowfish
 set expandtab
 set exrc
@@ -91,11 +191,12 @@ set hidden
 set ignorecase
 set pastetoggle=<F2>
 set ruler
-set runtimepath=~/.vim,~/.vim/bundle/nerdcommenter,~/.vim/bundle/nerdtree,~/.vim/bundle/syntastic,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/vim-cucumber,~/.vim/bundle/vim-endwise,~/.vim/bundle/vim-rails,~/.vim/bundle/vim-repeat,~/.vim/bundle/vim-surround,/usr/local/share/vim/vim73/vimfiles,/usr/local/share/vim/vim73,/usr/local/share/vim/vim73/vimfiles/after,~/.vim/after
+set runtimepath=~/.vim,~/.vim/bundle/Javascript-Indent,~/.vim/bundle/command-t,~/.vim/bundle/delimitMate,~/.vim/bundle/emmet-vim,~/.vim/bundle/neocomplcache.vim,~/.vim/bundle/nerdcommenter,~/.vim/bundle/nerdtree,~/.vim/bundle/syntastic,~/.vim/bundle/vim-coffee-script,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/vim-cucumber,~/.vim/bundle/vim-endwise,~/.vim/bundle/vim-latex,~/.vim/bundle/vim-less,~/.vim/bundle/vim-literate-coffeescript,~/.vim/bundle/vim-rails,~/.vim/bundle/vim-repeat,~/.vim/bundle/vim-slime,~/.vim/bundle/vim-stylus,~/.vim/bundle/vim-surround,/usr/local/share/vim/vim73/vimfiles,/usr/local/share/vim/vim73,/usr/local/share/vim/vim73/vimfiles/after,~/.vim/bundle/vim-coffee-script/after,~/.vim/after
 set secure
 set shiftwidth=2
 set showmatch
 set smartindent
+set smarttab
 set softtabstop=2
 set splitbelow
 set splitright
@@ -108,21 +209,58 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +1 chat.js
-badd +1 chat.html
-badd +12 ~/.vimrc
+badd +0 chat.js
 args chat.js
 edit chat.js
 set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
 wincmd t
 set winheight=1 winwidth=1
-exe 'vert 1resize ' . ((&columns * 78 + 78) / 157)
-exe 'vert 2resize ' . ((&columns * 78 + 78) / 157)
 argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+imap <buffer> <RightMouse> <Plug>delimitMateMRightMouse
+imap <buffer> <LeftMouse> <Plug>delimitMateMLeftMouse
+imap <buffer> <S-Up> <Plug>delimitMateS-Up
+imap <buffer> <S-Down> <Plug>delimitMateS-Down
+imap <buffer> <PageDown> <Plug>delimitMatePageDown
+imap <buffer> <PageUp> <Plug>delimitMatePageUp
+imap <buffer> <Down> <Plug>delimitMateDown
+imap <buffer> <Up> <Plug>delimitMateUp
+imap <buffer> <C-Right> <Plug>delimitMateC-Right
+imap <buffer> <C-Left> <Plug>delimitMateC-Left
+imap <buffer> <End> <Plug>delimitMateEnd
+imap <buffer> <Home> <Plug>delimitMateHome
+imap <buffer> <Right> <Plug>delimitMateRight
+imap <buffer> <Left> <Plug>delimitMateLeft
+imap <buffer> <Del> <Plug>delimitMateDel
+imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
+imap <buffer> <S-BS> <Plug>delimitMateS-BS
+imap <buffer> <BS> <Plug>delimitMateBS
+inoremap <buffer> <Plug>delimitMateJumpMany =len(delimitMate#Get('buffer')) ? delimitMate#Finish(0) : delimitMate#JumpMany()
+imap <buffer> <C-ScrollWheelRight> <Plug>delimitMateC-ScrollWheelRight
+imap <buffer> <S-ScrollWheelRight> <Plug>delimitMateS-ScrollWheelRight
+imap <buffer> <ScrollWheelRight> <Plug>delimitMateScrollWheelRight
+imap <buffer> <C-ScrollWheelLeft> <Plug>delimitMateC-ScrollWheelLeft
+imap <buffer> <S-ScrollWheelLeft> <Plug>delimitMateS-ScrollWheelLeft
+imap <buffer> <ScrollWheelLeft> <Plug>delimitMateScrollWheelLeft
+imap <buffer> <C-ScrollWheelDown> <Plug>delimitMateC-ScrollWheelDown
+imap <buffer> <S-ScrollWheelDown> <Plug>delimitMateS-ScrollWheelDown
+imap <buffer> <ScrollWheelDown> <Plug>delimitMateScrollWheelDown
+imap <buffer> <C-ScrollWheelUp> <Plug>delimitMateC-ScrollWheelUp
+imap <buffer> <S-ScrollWheelUp> <Plug>delimitMateS-ScrollWheelUp
+imap <buffer> <ScrollWheelUp> <Plug>delimitMateScrollWheelUp
+imap <buffer> <silent> g <Plug>delimitMateJumpMany
+imap <buffer> " <Plug>delimitMate"
+imap <buffer> ' <Plug>delimitMate'
+imap <buffer> ( <Plug>delimitMate(
+imap <buffer> ) <Plug>delimitMate)
+imap <buffer> [ <Plug>delimitMate[
+imap <buffer> ] <Plug>delimitMate]
+imap <buffer> ` <Plug>delimitMate`
+imap <buffer> { <Plug>delimitMate{
+imap <buffer> } <Plug>delimitMate}
+let &cpo=s:cpo_save
+unlet s:cpo_save
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -133,7 +271,7 @@ setlocal buflisted
 setlocal buftype=
 setlocal cindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=j1,J1
+setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
 setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
@@ -174,8 +312,8 @@ setlocal iminsert=2
 setlocal imsearch=2
 setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal indentexpr=GetJsIndent(v:lnum)
+setlocal indentkeys=
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
@@ -188,7 +326,7 @@ setlocal modeline
 setlocal modifiable
 setlocal nrformats=octal,hex
 set number
-setlocal number
+setlocal nonumber
 set numberwidth=3
 setlocal numberwidth=3
 setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -197,7 +335,8 @@ setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
 setlocal noreadonly
-setlocal norelativenumber
+set relativenumber
+setlocal relativenumber
 setlocal norightleft
 setlocal rightleftcmd=search
 setlocal noscrollbind
@@ -227,128 +366,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 16 - ((15 * winheight(0) + 27) / 54)
+let s:l = 35 - ((34 * winheight(0) + 17) / 35)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-16
-normal! 010l
-wincmd w
-argglobal
-edit chat.html
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal balloonexpr=
-setlocal nobinary
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal nocindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=
-setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
-setlocal comments=s:<!--,m:\ \ \ \ ,e:-->
-setlocal commentstring=<!--%s-->
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-setlocal nocursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=
-setlocal expandtab
-if &filetype != 'html'
-setlocal filetype=html
-endif
-setlocal foldcolumn=0
-setlocal foldenable
-setlocal foldexpr=0
-setlocal foldignore=#
-setlocal foldlevel=0
-setlocal foldmarker={{{,}}}
-setlocal foldmethod=manual
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=tcq
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=2
-setlocal imsearch=2
-setlocal include=
-setlocal includeexpr=
-setlocal indentexpr=HtmlIndentGet(v:lnum)
-setlocal indentkeys=o,O,*<Return>,<>>,{,}
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,192-255
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal nolist
-setlocal makeprg=
-setlocal matchpairs=(:),{:},[:],<:>
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=octal,hex
-set number
-setlocal number
-set numberwidth=3
-setlocal numberwidth=3
-setlocal omnifunc=htmlcomplete#CompleteTags
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-setlocal norelativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=2
-setlocal noshortname
-setlocal smartindent
-setlocal softtabstop=2
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=
-setlocal suffixesadd=
-setlocal swapfile
-setlocal synmaxcol=3000
-if &syntax != 'html'
-setlocal syntax=html
-endif
-setlocal tabstop=2
-setlocal tags=
-setlocal textwidth=0
-setlocal thesaurus=
-setlocal noundofile
-setlocal nowinfixheight
-setlocal nowinfixwidth
-set nowrap
-setlocal nowrap
-setlocal wrapmargin=0
-silent! normal! zE
-let s:l = 7 - ((6 * winheight(0) + 27) / 54)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-7
-normal! 02l
-wincmd w
-exe 'vert 1resize ' . ((&columns * 78 + 78) / 157)
-exe 'vert 2resize ' . ((&columns * 78 + 78) / 157)
+35
+normal! 0
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
