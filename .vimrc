@@ -60,9 +60,11 @@ let g:ctrlp_prompt_mappings = {
   \ 'AcceptSelection("v")': ['<c-u>']
   \ }
 
-" powerline
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-
+" Easymotion
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
 
 " enable file type detection and indent appropriately 
 filetype plugin indent on
