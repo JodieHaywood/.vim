@@ -54,12 +54,14 @@ nmap <silent> <C-Up> <C-W>+
 " NERDTree Remap
 let g:NERDTreeMapOpenVSplit = "u"
 
-
 " ctrlp remap
 let g:ctrlp_prompt_mappings = {
   \ 'AcceptSelection("h")': ['<c-i>'],
   \ 'AcceptSelection("v")': ['<c-u>']
   \ }
+
+" powerline
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 
 
 " enable file type detection and indent appropriately 
