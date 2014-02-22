@@ -79,3 +79,9 @@
 [submodule "bundle/vim-powerline"]
 	path = bundle/vim-powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = https://github.com/bling/vim-airline.git
+[submodule "bundle/colorizer"]
+	path = bundle/colorizer
+	url = https://github.com/lilydjwg/colorizer.git

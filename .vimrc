@@ -26,6 +26,7 @@ set shiftwidth=2
 set softtabstop=2
 set ruler
 set smarttab
+set t_Co=256
 
 " key miss catches
 command WQ wq
