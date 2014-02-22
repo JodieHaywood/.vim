@@ -542,7 +542,7 @@ set helplang=en
 set hidden
 set pastetoggle=<F2>
 set ruler
-set runtimepath=~/.vim,~/.vim/bundle/Javascript-Indent,~/.vim/bundle/YouCompleteMe,~/.vim/bundle/colorizer,~/.vim/bundle/ctrlp,~/.vim/bundle/delimitMate,~/.vim/bundle/emmet-vim,~/.vim/bundle/neocomplcache,~/.vim/bundle/neocomplcache.vim,~/.vim/bundle/nerdcommenter,~/.vim/bundle/nerdtree,~/.vim/bundle/rainbow-parentheses,~/.vim/bundle/syntastic,~/.vim/bundle/vim-airline,~/.vim/bundle/vim-coffee-script,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/vim-cucumber,~/.vim/bundle/vim-easymotion,~/.vim/bundle/vim-endwise,~/.vim/bundle/vim-fugitive,~/.vim/bundle/vim-latex,~/.vim/bundle/vim-less,~/.vim/bundle/vim-literate-coffeescript,~/.vim/bundle/vim-powerline,~/.vim/bundle/vim-rails,~/.vim/bundle/vim-repeat,~/.vim/bundle/vim-slime,~/.vim/bundle/vim-stylus,~/.vim/bundle/vim-surround,/usr/local/share/vim/vim73/vimfiles,/usr/local/share/vim/vim73,/usr/local/share/vim/vim73/vimfiles/after,~/.vim/bundle/vim-coffee-script/after,~/.vim/after
+set runtimepath=~/.vim,~/.vim/bundle/Javascript-Indent,~/.vim/bundle/colorizer,~/.vim/bundle/ctrlp,~/.vim/bundle/delimitMate,~/.vim/bundle/emmet-vim,~/.vim/bundle/neocomplcache,~/.vim/bundle/neocomplcache.vim,~/.vim/bundle/nerdcommenter,~/.vim/bundle/nerdtree,~/.vim/bundle/rainbow-parentheses,~/.vim/bundle/syntastic,~/.vim/bundle/vim-airline,~/.vim/bundle/vim-coffee-script,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/vim-cucumber,~/.vim/bundle/vim-easymotion,~/.vim/bundle/vim-endwise,~/.vim/bundle/vim-fugitive,~/.vim/bundle/vim-latex,~/.vim/bundle/vim-less,~/.vim/bundle/vim-literate-coffeescript,~/.vim/bundle/vim-powerline,~/.vim/bundle/vim-rails,~/.vim/bundle/vim-repeat,~/.vim/bundle/vim-slime,~/.vim/bundle/vim-stylus,~/.vim/bundle/vim-surround,/usr/local/share/vim/vim73/vimfiles,/usr/local/share/vim/vim73,/usr/local/share/vim/vim73/vimfiles/after,~/.vim/bundle/vim-coffee-script/after,~/.vim/after
 set secure
 set shiftwidth=2
 set showmatch
@@ -690,7 +690,7 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 137 - ((65 * winheight(0) + 35) / 71)
+let s:l = 137 - ((68 * winheight(0) + 35) / 71)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
