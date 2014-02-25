@@ -10,44 +10,27 @@ inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_complete) unite#source
 imap <silent> <Plug>IMAP_JumpBack =IMAP_Jumpfunc('b', 0)
 imap <silent> <Plug>IMAP_JumpForward =IMAP_Jumpfunc('', 0)
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
-inoremap <Plug>(EmmetAnchorizeSummary) =emmet#anchorizeURL(1)
-inoremap <Plug>(EmmetAnchorizeURL) =emmet#anchorizeURL(0)
-inoremap <Plug>(EmmetRemoveTag) =emmet#removeTag()
+inoremap <Plug>(EmmetAnchorizeSummary) =emmet#util#closePopup()=emmet#anchorizeURL(1)<Right>
+inoremap <Plug>(EmmetAnchorizeURL) =emmet#util#closePopup()=emmet#anchorizeURL(0)<Right>
+inoremap <Plug>(EmmetRemoveTag) =emmet#util#closePopup()=emmet#removeTag()<Right>
 inoremap <Plug>(EmmetSplitJoinTag) :call emmet#splitJoinTag()
-inoremap <Plug>(EmmetToggleComment) =emmet#toggleComment()
-inoremap <Plug>(EmmetImageSize) =emmet#imageSize()
+inoremap <Plug>(EmmetToggleComment) =emmet#util#closePopup()=emmet#toggleComment()<Right>
+inoremap <Plug>(EmmetImageSize) =emmet#util#closePopup()=emmet#imageSize()<Right>
 inoremap <Plug>(EmmetMovePrev) :call emmet#moveNextPrev(1)
 inoremap <Plug>(EmmetMoveNext) :call emmet#moveNextPrev(0)
 inoremap <Plug>(EmmetBalanceTagOutward) :call emmet#balanceTag(-1)
 inoremap <Plug>(EmmetBalanceTagInward) :call emmet#balanceTag(1)
-inoremap <Plug>(EmmetExpandWord) =emmet#expandAbbr(1,"")
-inoremap <Plug>(EmmetExpandAbbr) =emmet#expandAbbr(0,"")<Right>
-inoremap <silent> <Plug>delimitMateMRightMouse =delimitMate#Finish(1)<RightMouse>
-inoremap <silent> <Plug>delimitMateMLeftMouse =delimitMate#Finish(1)<LeftMouse>
-inoremap <silent> <Plug>delimitMateDel =delimitMate#Del()
-inoremap <silent> <Plug>delimitMateS-Tab =delimitMate#JumpAny()
-inoremap <silent> <Plug>delimitMateSpace =delimitMate#ExpandSpace()
-inoremap <silent> <Plug>delimitMateCR =delimitMate#ExpandReturn()
-inoremap <silent> <expr> <Plug>delimitMateS-BS delimitMate#WithinEmptyPair() ? "\=delimitMate#Del()\" : "\<S-BS>"
+inoremap <Plug>(EmmetExpandWord) =emmet#util#closePopup()=emmet#expandAbbr(1,"")<Right>
+inoremap <Plug>(EmmetExpandAbbr) =emmet#util#closePopup()=emmet#expandAbbr(0,"")<Right>
+inoremap <silent> <expr> <Plug>delimitMateS-BS delimitMate#WithinEmptyPair() ? "\<Del>" : "\<S-BS>"
 inoremap <silent> <Plug>delimitMateBS =delimitMate#BS()
-inoremap <silent> <Plug>delimitMate` =delimitMate#QuoteDelim("\`")
-inoremap <silent> <Plug>delimitMate' =delimitMate#QuoteDelim("\'")
-inoremap <silent> <Plug>delimitMate" =delimitMate#QuoteDelim("\"")
-inoremap <silent> <Plug>delimitMate] =delimitMate#JumpOut("\]")
-inoremap <silent> <Plug>delimitMate} =delimitMate#JumpOut("\}")
-inoremap <silent> <Plug>delimitMate) =delimitMate#JumpOut("\)")
-inoremap <silent> <Plug>delimitMate[ [=delimitMate#ParenDelim("]")
-inoremap <silent> <Plug>delimitMate{ {=delimitMate#ParenDelim("}")
-inoremap <silent> <Plug>delimitMate( (=delimitMate#ParenDelim(")")
-nmap v <Plug>SlimeConfig
-nmap  <Plug>SlimeParagraphSend
-xmap  <Plug>SlimeRegionSend
 nmap <silent>  :wincmd h
 vmap <NL> <Plug>IMAP_JumpForward
 nmap <silent> <NL> :wincmd j
 nmap <silent>  :wincmd k
 nmap <silent>  :wincmd l
 nnoremap  :call NumberToggle()
+nnoremap <silent>  :CtrlP
 vmap c <Plug>(EmmetCodePretty)
 vmap m <Plug>(EmmetMergeLines)
 nmap A <Plug>(EmmetAnchorizeSummary)
@@ -65,8 +48,8 @@ nmap d <Plug>(EmmetBalanceTagInward)
 nmap ; <Plug>(EmmetExpandWord)
 vmap , <Plug>(EmmetExpandAbbr)
 nmap , <Plug>(EmmetExpandAbbr)
-inoremap ï o
 xmap S <Plug>VSurround
+map \\ <Plug>(easymotion-prefix)
 nmap \ca <Plug>NERDCommenterAltDelims
 xmap \cu <Plug>NERDCommenterUncomment
 nmap \cu <Plug>NERDCommenterUncomment
@@ -90,8 +73,7 @@ xmap \c  <Plug>NERDCommenterToggle
 nmap \c  <Plug>NERDCommenterToggle
 xmap \cc <Plug>NERDCommenterComment
 nmap \cc <Plug>NERDCommenterComment
-nnoremap <silent> \b :CommandTBuffer
-nnoremap <silent> \t :CommandT
+nmap \tc <Plug>Colorizer
 map \cx :call CoffeeLintFile()
 map \n :call LoadSession()
 map \m :call MakeSession()
@@ -112,6 +94,371 @@ vmap <silent> <Plug>IMAP_DeleteAndJumpBack "_<Del>i=IMAP_Jumpfunc('b', 0)
 vmap <silent> <Plug>IMAP_DeleteAndJumpForward "_<Del>i=IMAP_Jumpfunc('', 0)
 nmap <silent> <Plug>IMAP_JumpBack i=IMAP_Jumpfunc('b', 0)
 nmap <silent> <Plug>IMAP_JumpForward i=IMAP_Jumpfunc('', 0)
+map <silent> <Plug>(easymotion-prefix)N <Plug>(easymotion-N)
+map <silent> <Plug>(easymotion-prefix)n <Plug>(easymotion-n)
+map <silent> <Plug>(easymotion-prefix)k <Plug>(easymotion-k)
+map <silent> <Plug>(easymotion-prefix)j <Plug>(easymotion-j)
+map <silent> <Plug>(easymotion-prefix)gE <Plug>(easymotion-gE)
+map <silent> <Plug>(easymotion-prefix)ge <Plug>(easymotion-ge)
+map <silent> <Plug>(easymotion-prefix)E <Plug>(easymotion-E)
+map <silent> <Plug>(easymotion-prefix)e <Plug>(easymotion-e)
+map <silent> <Plug>(easymotion-prefix)B <Plug>(easymotion-B)
+map <silent> <Plug>(easymotion-prefix)b <Plug>(easymotion-b)
+map <silent> <Plug>(easymotion-prefix)W <Plug>(easymotion-W)
+map <silent> <Plug>(easymotion-prefix)w <Plug>(easymotion-w)
+map <silent> <Plug>(easymotion-prefix)T <Plug>(easymotion-T)
+map <silent> <Plug>(easymotion-prefix)t <Plug>(easymotion-t)
+map <silent> <Plug>(easymotion-prefix)s <Plug>(easymotion-s)
+map <silent> <Plug>(easymotion-prefix)F <Plug>(easymotion-F)
+map <silent> <Plug>(easymotion-prefix)f <Plug>(easymotion-f)
+xnoremap <silent> <Plug>(easymotion-activate) :call EasyMotion#activate(1)
+nnoremap <silent> <Plug>(easymotion-activate) :call EasyMotion#activate(0)
+snoremap <silent> <Plug>(easymotion-activate) :call EasyMotion#activate(0)
+onoremap <silent> <Plug>(easymotion-activate) :call EasyMotion#activate(0)
+xnoremap <silent> <Plug>(easymotion-lineanywhere) :call EasyMotion#LineAnywhere(1,2)
+nnoremap <silent> <Plug>(easymotion-lineanywhere) :call EasyMotion#LineAnywhere(0,2)
+snoremap <silent> <Plug>(easymotion-lineanywhere) :call EasyMotion#LineAnywhere(0,2)
+onoremap <silent> <Plug>(easymotion-lineanywhere) :call EasyMotion#LineAnywhere(0,2)
+xnoremap <silent> <Plug>(easymotion-linebackward) :call EasyMotion#LineAnywhere(1,1)
+nnoremap <silent> <Plug>(easymotion-linebackward) :call EasyMotion#LineAnywhere(0,1)
+snoremap <silent> <Plug>(easymotion-linebackward) :call EasyMotion#LineAnywhere(0,1)
+onoremap <silent> <Plug>(easymotion-linebackward) :call EasyMotion#LineAnywhere(0,1)
+xnoremap <silent> <Plug>(easymotion-lineforward) :call EasyMotion#LineAnywhere(1,0)
+nnoremap <silent> <Plug>(easymotion-lineforward) :call EasyMotion#LineAnywhere(0,0)
+snoremap <silent> <Plug>(easymotion-lineforward) :call EasyMotion#LineAnywhere(0,0)
+onoremap <silent> <Plug>(easymotion-lineforward) :call EasyMotion#LineAnywhere(0,0)
+xnoremap <silent> <Plug>(easymotion-bd-el) :call EasyMotion#EL(1,2)
+nnoremap <silent> <Plug>(easymotion-bd-el) :call EasyMotion#EL(0,2)
+snoremap <silent> <Plug>(easymotion-bd-el) :call EasyMotion#EL(0,2)
+onoremap <silent> <Plug>(easymotion-bd-el) :call EasyMotion#EL(0,2)
+xnoremap <silent> <Plug>(easymotion-gel) :call EasyMotion#EL(1,1)
+nnoremap <silent> <Plug>(easymotion-gel) :call EasyMotion#EL(0,1)
+snoremap <silent> <Plug>(easymotion-gel) :call EasyMotion#EL(0,1)
+onoremap <silent> <Plug>(easymotion-gel) :call EasyMotion#EL(0,1)
+xnoremap <silent> <Plug>(easymotion-el) :call EasyMotion#EL(1,0)
+nnoremap <silent> <Plug>(easymotion-el) :call EasyMotion#EL(0,0)
+snoremap <silent> <Plug>(easymotion-el) :call EasyMotion#EL(0,0)
+onoremap <silent> <Plug>(easymotion-el) :call EasyMotion#EL(0,0)
+xnoremap <silent> <Plug>(easymotion-bd-wl) :call EasyMotion#WBL(1,2)
+nnoremap <silent> <Plug>(easymotion-bd-wl) :call EasyMotion#WBL(0,2)
+snoremap <silent> <Plug>(easymotion-bd-wl) :call EasyMotion#WBL(0,2)
+onoremap <silent> <Plug>(easymotion-bd-wl) :call EasyMotion#WBL(0,2)
+xnoremap <silent> <Plug>(easymotion-bl) :call EasyMotion#WBL(1,1)
+nnoremap <silent> <Plug>(easymotion-bl) :call EasyMotion#WBL(0,1)
+snoremap <silent> <Plug>(easymotion-bl) :call EasyMotion#WBL(0,1)
+onoremap <silent> <Plug>(easymotion-bl) :call EasyMotion#WBL(0,1)
+xnoremap <silent> <Plug>(easymotion-wl) :call EasyMotion#WBL(1,0)
+nnoremap <silent> <Plug>(easymotion-wl) :call EasyMotion#WBL(0,0)
+snoremap <silent> <Plug>(easymotion-wl) :call EasyMotion#WBL(0,0)
+onoremap <silent> <Plug>(easymotion-wl) :call EasyMotion#WBL(0,0)
+xnoremap <silent> <Plug>(easymotion-prev) :call EasyMotion#NextPrevious(1,1)
+nnoremap <silent> <Plug>(easymotion-prev) :call EasyMotion#NextPrevious(0,1)
+snoremap <silent> <Plug>(easymotion-prev) :call EasyMotion#NextPrevious(0,1)
+onoremap <silent> <Plug>(easymotion-prev) :call EasyMotion#NextPrevious(0,1)
+xnoremap <silent> <Plug>(easymotion-next) :call EasyMotion#NextPrevious(1,0)
+nnoremap <silent> <Plug>(easymotion-next) :call EasyMotion#NextPrevious(0,0)
+snoremap <silent> <Plug>(easymotion-next) :call EasyMotion#NextPrevious(0,0)
+onoremap <silent> <Plug>(easymotion-next) :call EasyMotion#NextPrevious(0,0)
+xnoremap <silent> <Plug>(easymotion-dotrepeat) :call EasyMotion#DotRepeat(1)
+nnoremap <silent> <Plug>(easymotion-dotrepeat) :call EasyMotion#DotRepeat(0)
+snoremap <silent> <Plug>(easymotion-dotrepeat) :call EasyMotion#DotRepeat(0)
+onoremap <silent> <Plug>(easymotion-dotrepeat) :call EasyMotion#DotRepeat(0)
+xnoremap <silent> <Plug>(easymotion-repeat) :call EasyMotion#Repeat(1)
+nnoremap <silent> <Plug>(easymotion-repeat) :call EasyMotion#Repeat(0)
+snoremap <silent> <Plug>(easymotion-repeat) :call EasyMotion#Repeat(0)
+onoremap <silent> <Plug>(easymotion-repeat) :call EasyMotion#Repeat(0)
+xnoremap <silent> <Plug>(easymotion-jumptoanywhere) :call EasyMotion#JumpToAnywhere(1,2)
+nnoremap <silent> <Plug>(easymotion-jumptoanywhere) :call EasyMotion#JumpToAnywhere(0,2)
+snoremap <silent> <Plug>(easymotion-jumptoanywhere) :call EasyMotion#JumpToAnywhere(0,2)
+onoremap <silent> <Plug>(easymotion-jumptoanywhere) :call EasyMotion#JumpToAnywhere(0,2)
+xnoremap <silent> <Plug>(easymotion-bd-n) :call EasyMotion#Search(1,2)
+nnoremap <silent> <Plug>(easymotion-bd-n) :call EasyMotion#Search(0,2)
+snoremap <silent> <Plug>(easymotion-bd-n) :call EasyMotion#Search(0,2)
+onoremap <silent> <Plug>(easymotion-bd-n) :call EasyMotion#Search(0,2)
+xnoremap <silent> <Plug>(easymotion-N) :call EasyMotion#Search(1,1)
+nnoremap <silent> <Plug>(easymotion-N) :call EasyMotion#Search(0,1)
+snoremap <silent> <Plug>(easymotion-N) :call EasyMotion#Search(0,1)
+onoremap <silent> <Plug>(easymotion-N) :call EasyMotion#Search(0,1)
+xnoremap <silent> <Plug>(easymotion-n) :call EasyMotion#Search(1,0)
+nnoremap <silent> <Plug>(easymotion-n) :call EasyMotion#Search(0,0)
+snoremap <silent> <Plug>(easymotion-n) :call EasyMotion#Search(0,0)
+onoremap <silent> <Plug>(easymotion-n) :call EasyMotion#Search(0,0)
+xnoremap <silent> <Plug>(easymotion-eol-bd-jk) :call EasyMotion#Eol(1,2)
+nnoremap <silent> <Plug>(easymotion-eol-bd-jk) :call EasyMotion#Eol(0,2)
+snoremap <silent> <Plug>(easymotion-eol-bd-jk) :call EasyMotion#Eol(0,2)
+onoremap <silent> <Plug>(easymotion-eol-bd-jk) :call EasyMotion#Eol(0,2)
+xnoremap <silent> <Plug>(easymotion-eol-k) :call EasyMotion#Eol(1,1)
+nnoremap <silent> <Plug>(easymotion-eol-k) :call EasyMotion#Eol(0,1)
+snoremap <silent> <Plug>(easymotion-eol-k) :call EasyMotion#Eol(0,1)
+onoremap <silent> <Plug>(easymotion-eol-k) :call EasyMotion#Eol(0,1)
+xnoremap <silent> <Plug>(easymotion-eol-j) :call EasyMotion#Eol(1,0)
+nnoremap <silent> <Plug>(easymotion-eol-j) :call EasyMotion#Eol(0,0)
+snoremap <silent> <Plug>(easymotion-eol-j) :call EasyMotion#Eol(0,0)
+onoremap <silent> <Plug>(easymotion-eol-j) :call EasyMotion#Eol(0,0)
+xnoremap <silent> <Plug>(easymotion-sol-bd-jk) :call EasyMotion#Sol(1,2)
+nnoremap <silent> <Plug>(easymotion-sol-bd-jk) :call EasyMotion#Sol(0,2)
+snoremap <silent> <Plug>(easymotion-sol-bd-jk) :call EasyMotion#Sol(0,2)
+onoremap <silent> <Plug>(easymotion-sol-bd-jk) :call EasyMotion#Sol(0,2)
+xnoremap <silent> <Plug>(easymotion-sol-k) :call EasyMotion#Sol(1,1)
+nnoremap <silent> <Plug>(easymotion-sol-k) :call EasyMotion#Sol(0,1)
+snoremap <silent> <Plug>(easymotion-sol-k) :call EasyMotion#Sol(0,1)
+onoremap <silent> <Plug>(easymotion-sol-k) :call EasyMotion#Sol(0,1)
+xnoremap <silent> <Plug>(easymotion-sol-j) :call EasyMotion#Sol(1,0)
+nnoremap <silent> <Plug>(easymotion-sol-j) :call EasyMotion#Sol(0,0)
+snoremap <silent> <Plug>(easymotion-sol-j) :call EasyMotion#Sol(0,0)
+onoremap <silent> <Plug>(easymotion-sol-j) :call EasyMotion#Sol(0,0)
+xnoremap <silent> <Plug>(easymotion-bd-jk) :call EasyMotion#JK(1,2)
+nnoremap <silent> <Plug>(easymotion-bd-jk) :call EasyMotion#JK(0,2)
+snoremap <silent> <Plug>(easymotion-bd-jk) :call EasyMotion#JK(0,2)
+onoremap <silent> <Plug>(easymotion-bd-jk) :call EasyMotion#JK(0,2)
+xnoremap <silent> <Plug>(easymotion-k) :call EasyMotion#JK(1,1)
+nnoremap <silent> <Plug>(easymotion-k) :call EasyMotion#JK(0,1)
+snoremap <silent> <Plug>(easymotion-k) :call EasyMotion#JK(0,1)
+onoremap <silent> <Plug>(easymotion-k) :call EasyMotion#JK(0,1)
+xnoremap <silent> <Plug>(easymotion-j) :call EasyMotion#JK(1,0)
+nnoremap <silent> <Plug>(easymotion-j) :call EasyMotion#JK(0,0)
+snoremap <silent> <Plug>(easymotion-j) :call EasyMotion#JK(0,0)
+onoremap <silent> <Plug>(easymotion-j) :call EasyMotion#JK(0,0)
+xnoremap <silent> <Plug>(easymotion-iskeyword-bd-e) :call EasyMotion#EK(1,2)
+nnoremap <silent> <Plug>(easymotion-iskeyword-bd-e) :call EasyMotion#EK(0,2)
+snoremap <silent> <Plug>(easymotion-iskeyword-bd-e) :call EasyMotion#EK(0,2)
+onoremap <silent> <Plug>(easymotion-iskeyword-bd-e) :call EasyMotion#EK(0,2)
+xnoremap <silent> <Plug>(easymotion-iskeyword-ge) :call EasyMotion#EK(1,1)
+nnoremap <silent> <Plug>(easymotion-iskeyword-ge) :call EasyMotion#EK(0,1)
+snoremap <silent> <Plug>(easymotion-iskeyword-ge) :call EasyMotion#EK(0,1)
+onoremap <silent> <Plug>(easymotion-iskeyword-ge) :call EasyMotion#EK(0,1)
+xnoremap <silent> <Plug>(easymotion-iskeyword-e) :call EasyMotion#EK(1,0)
+nnoremap <silent> <Plug>(easymotion-iskeyword-e) :call EasyMotion#EK(0,0)
+snoremap <silent> <Plug>(easymotion-iskeyword-e) :call EasyMotion#EK(0,0)
+onoremap <silent> <Plug>(easymotion-iskeyword-e) :call EasyMotion#EK(0,0)
+xnoremap <silent> <Plug>(easymotion-bd-E) :call EasyMotion#EW(1,2)
+nnoremap <silent> <Plug>(easymotion-bd-E) :call EasyMotion#EW(0,2)
+snoremap <silent> <Plug>(easymotion-bd-E) :call EasyMotion#EW(0,2)
+onoremap <silent> <Plug>(easymotion-bd-E) :call EasyMotion#EW(0,2)
+xnoremap <silent> <Plug>(easymotion-gE) :call EasyMotion#EW(1,1)
+nnoremap <silent> <Plug>(easymotion-gE) :call EasyMotion#EW(0,1)
+snoremap <silent> <Plug>(easymotion-gE) :call EasyMotion#EW(0,1)
+onoremap <silent> <Plug>(easymotion-gE) :call EasyMotion#EW(0,1)
+xnoremap <silent> <Plug>(easymotion-E) :call EasyMotion#EW(1,0)
+nnoremap <silent> <Plug>(easymotion-E) :call EasyMotion#EW(0,0)
+snoremap <silent> <Plug>(easymotion-E) :call EasyMotion#EW(0,0)
+onoremap <silent> <Plug>(easymotion-E) :call EasyMotion#EW(0,0)
+xnoremap <silent> <Plug>(easymotion-bd-e) :call EasyMotion#E(1,2)
+nnoremap <silent> <Plug>(easymotion-bd-e) :call EasyMotion#E(0,2)
+snoremap <silent> <Plug>(easymotion-bd-e) :call EasyMotion#E(0,2)
+onoremap <silent> <Plug>(easymotion-bd-e) :call EasyMotion#E(0,2)
+xnoremap <silent> <Plug>(easymotion-ge) :call EasyMotion#E(1,1)
+nnoremap <silent> <Plug>(easymotion-ge) :call EasyMotion#E(0,1)
+snoremap <silent> <Plug>(easymotion-ge) :call EasyMotion#E(0,1)
+onoremap <silent> <Plug>(easymotion-ge) :call EasyMotion#E(0,1)
+xnoremap <silent> <Plug>(easymotion-e) :call EasyMotion#E(1,0)
+nnoremap <silent> <Plug>(easymotion-e) :call EasyMotion#E(0,0)
+snoremap <silent> <Plug>(easymotion-e) :call EasyMotion#E(0,0)
+onoremap <silent> <Plug>(easymotion-e) :call EasyMotion#E(0,0)
+xnoremap <silent> <Plug>(easymotion-iskeyword-bd-w) :call EasyMotion#WBK(1,2)
+nnoremap <silent> <Plug>(easymotion-iskeyword-bd-w) :call EasyMotion#WBK(0,2)
+snoremap <silent> <Plug>(easymotion-iskeyword-bd-w) :call EasyMotion#WBK(0,2)
+onoremap <silent> <Plug>(easymotion-iskeyword-bd-w) :call EasyMotion#WBK(0,2)
+xnoremap <silent> <Plug>(easymotion-iskeyword-b) :call EasyMotion#WBK(1,1)
+nnoremap <silent> <Plug>(easymotion-iskeyword-b) :call EasyMotion#WBK(0,1)
+snoremap <silent> <Plug>(easymotion-iskeyword-b) :call EasyMotion#WBK(0,1)
+onoremap <silent> <Plug>(easymotion-iskeyword-b) :call EasyMotion#WBK(0,1)
+xnoremap <silent> <Plug>(easymotion-iskeyword-w) :call EasyMotion#WBK(1,0)
+nnoremap <silent> <Plug>(easymotion-iskeyword-w) :call EasyMotion#WBK(0,0)
+snoremap <silent> <Plug>(easymotion-iskeyword-w) :call EasyMotion#WBK(0,0)
+onoremap <silent> <Plug>(easymotion-iskeyword-w) :call EasyMotion#WBK(0,0)
+xnoremap <silent> <Plug>(easymotion-bd-W) :call EasyMotion#WBW(1,2)
+nnoremap <silent> <Plug>(easymotion-bd-W) :call EasyMotion#WBW(0,2)
+snoremap <silent> <Plug>(easymotion-bd-W) :call EasyMotion#WBW(0,2)
+onoremap <silent> <Plug>(easymotion-bd-W) :call EasyMotion#WBW(0,2)
+xnoremap <silent> <Plug>(easymotion-B) :call EasyMotion#WBW(1,1)
+nnoremap <silent> <Plug>(easymotion-B) :call EasyMotion#WBW(0,1)
+snoremap <silent> <Plug>(easymotion-B) :call EasyMotion#WBW(0,1)
+onoremap <silent> <Plug>(easymotion-B) :call EasyMotion#WBW(0,1)
+xnoremap <silent> <Plug>(easymotion-W) :call EasyMotion#WBW(1,0)
+nnoremap <silent> <Plug>(easymotion-W) :call EasyMotion#WBW(0,0)
+snoremap <silent> <Plug>(easymotion-W) :call EasyMotion#WBW(0,0)
+onoremap <silent> <Plug>(easymotion-W) :call EasyMotion#WBW(0,0)
+xnoremap <silent> <Plug>(easymotion-bd-w) :call EasyMotion#WB(1,2)
+nnoremap <silent> <Plug>(easymotion-bd-w) :call EasyMotion#WB(0,2)
+snoremap <silent> <Plug>(easymotion-bd-w) :call EasyMotion#WB(0,2)
+onoremap <silent> <Plug>(easymotion-bd-w) :call EasyMotion#WB(0,2)
+xnoremap <silent> <Plug>(easymotion-b) :call EasyMotion#WB(1,1)
+nnoremap <silent> <Plug>(easymotion-b) :call EasyMotion#WB(0,1)
+snoremap <silent> <Plug>(easymotion-b) :call EasyMotion#WB(0,1)
+onoremap <silent> <Plug>(easymotion-b) :call EasyMotion#WB(0,1)
+xnoremap <silent> <Plug>(easymotion-w) :call EasyMotion#WB(1,0)
+nnoremap <silent> <Plug>(easymotion-w) :call EasyMotion#WB(0,0)
+snoremap <silent> <Plug>(easymotion-w) :call EasyMotion#WB(0,0)
+onoremap <silent> <Plug>(easymotion-w) :call EasyMotion#WB(0,0)
+xnoremap <silent> <Plug>(easymotion-Tln) :call EasyMotion#TL(-1,1,1)
+nnoremap <silent> <Plug>(easymotion-Tln) :call EasyMotion#TL(-1,0,1)
+snoremap <silent> <Plug>(easymotion-Tln) :call EasyMotion#TL(-1,0,1)
+onoremap <silent> <Plug>(easymotion-Tln) :call EasyMotion#TL(-1,0,1)
+xnoremap <silent> <Plug>(easymotion-t2) :call EasyMotion#T(2,1,0)
+nnoremap <silent> <Plug>(easymotion-t2) :call EasyMotion#T(2,0,0)
+snoremap <silent> <Plug>(easymotion-t2) :call EasyMotion#T(2,0,0)
+onoremap <silent> <Plug>(easymotion-t2) :call EasyMotion#T(2,0,0)
+xnoremap <silent> <Plug>(easymotion-t) :call EasyMotion#T(1,1,0)
+nnoremap <silent> <Plug>(easymotion-t) :call EasyMotion#T(1,0,0)
+snoremap <silent> <Plug>(easymotion-t) :call EasyMotion#T(1,0,0)
+onoremap <silent> <Plug>(easymotion-t) :call EasyMotion#T(1,0,0)
+xnoremap <silent> <Plug>(easymotion-s) :call EasyMotion#S(1,1,2)
+nnoremap <silent> <Plug>(easymotion-s) :call EasyMotion#S(1,0,2)
+snoremap <silent> <Plug>(easymotion-s) :call EasyMotion#S(1,0,2)
+onoremap <silent> <Plug>(easymotion-s) :call EasyMotion#S(1,0,2)
+xnoremap <silent> <Plug>(easymotion-tn) :call EasyMotion#T(-1,1,0)
+nnoremap <silent> <Plug>(easymotion-tn) :call EasyMotion#T(-1,0,0)
+snoremap <silent> <Plug>(easymotion-tn) :call EasyMotion#T(-1,0,0)
+onoremap <silent> <Plug>(easymotion-tn) :call EasyMotion#T(-1,0,0)
+xnoremap <silent> <Plug>(easymotion-bd-t2) :call EasyMotion#T(2,1,2)
+nnoremap <silent> <Plug>(easymotion-bd-t2) :call EasyMotion#T(2,0,2)
+snoremap <silent> <Plug>(easymotion-bd-t2) :call EasyMotion#T(2,0,2)
+onoremap <silent> <Plug>(easymotion-bd-t2) :call EasyMotion#T(2,0,2)
+xnoremap <silent> <Plug>(easymotion-tl) :call EasyMotion#TL(1,1,0)
+nnoremap <silent> <Plug>(easymotion-tl) :call EasyMotion#TL(1,0,0)
+snoremap <silent> <Plug>(easymotion-tl) :call EasyMotion#TL(1,0,0)
+onoremap <silent> <Plug>(easymotion-tl) :call EasyMotion#TL(1,0,0)
+xnoremap <silent> <Plug>(easymotion-bd-tn) :call EasyMotion#T(-1,1,2)
+nnoremap <silent> <Plug>(easymotion-bd-tn) :call EasyMotion#T(-1,0,2)
+snoremap <silent> <Plug>(easymotion-bd-tn) :call EasyMotion#T(-1,0,2)
+onoremap <silent> <Plug>(easymotion-bd-tn) :call EasyMotion#T(-1,0,2)
+xnoremap <silent> <Plug>(easymotion-fn) :call EasyMotion#S(-1,1,0)
+nnoremap <silent> <Plug>(easymotion-fn) :call EasyMotion#S(-1,0,0)
+snoremap <silent> <Plug>(easymotion-fn) :call EasyMotion#S(-1,0,0)
+onoremap <silent> <Plug>(easymotion-fn) :call EasyMotion#S(-1,0,0)
+xnoremap <silent> <Plug>(easymotion-bd-tl) :call EasyMotion#TL(1,1,2)
+nnoremap <silent> <Plug>(easymotion-bd-tl) :call EasyMotion#TL(1,0,2)
+snoremap <silent> <Plug>(easymotion-bd-tl) :call EasyMotion#TL(1,0,2)
+onoremap <silent> <Plug>(easymotion-bd-tl) :call EasyMotion#TL(1,0,2)
+xnoremap <silent> <Plug>(easymotion-fl) :call EasyMotion#SL(1,1,0)
+nnoremap <silent> <Plug>(easymotion-fl) :call EasyMotion#SL(1,0,0)
+snoremap <silent> <Plug>(easymotion-fl) :call EasyMotion#SL(1,0,0)
+onoremap <silent> <Plug>(easymotion-fl) :call EasyMotion#SL(1,0,0)
+xnoremap <silent> <Plug>(easymotion-bd-tl2) :call EasyMotion#TL(2,1,2)
+nnoremap <silent> <Plug>(easymotion-bd-tl2) :call EasyMotion#TL(2,0,2)
+snoremap <silent> <Plug>(easymotion-bd-tl2) :call EasyMotion#TL(2,0,2)
+onoremap <silent> <Plug>(easymotion-bd-tl2) :call EasyMotion#TL(2,0,2)
+xnoremap <silent> <Plug>(easymotion-bd-fn) :call EasyMotion#S(-1,1,2)
+nnoremap <silent> <Plug>(easymotion-bd-fn) :call EasyMotion#S(-1,0,2)
+snoremap <silent> <Plug>(easymotion-bd-fn) :call EasyMotion#S(-1,0,2)
+onoremap <silent> <Plug>(easymotion-bd-fn) :call EasyMotion#S(-1,0,2)
+xnoremap <silent> <Plug>(easymotion-f) :call EasyMotion#S(1,1,0)
+nnoremap <silent> <Plug>(easymotion-f) :call EasyMotion#S(1,0,0)
+snoremap <silent> <Plug>(easymotion-f) :call EasyMotion#S(1,0,0)
+onoremap <silent> <Plug>(easymotion-f) :call EasyMotion#S(1,0,0)
+xnoremap <silent> <Plug>(easymotion-bd-fl) :call EasyMotion#SL(1,1,2)
+nnoremap <silent> <Plug>(easymotion-bd-fl) :call EasyMotion#SL(1,0,2)
+snoremap <silent> <Plug>(easymotion-bd-fl) :call EasyMotion#SL(1,0,2)
+onoremap <silent> <Plug>(easymotion-bd-fl) :call EasyMotion#SL(1,0,2)
+xnoremap <silent> <Plug>(easymotion-Fl2) :call EasyMotion#SL(2,1,1)
+nnoremap <silent> <Plug>(easymotion-Fl2) :call EasyMotion#SL(2,0,1)
+snoremap <silent> <Plug>(easymotion-Fl2) :call EasyMotion#SL(2,0,1)
+onoremap <silent> <Plug>(easymotion-Fl2) :call EasyMotion#SL(2,0,1)
+xnoremap <silent> <Plug>(easymotion-tl2) :call EasyMotion#TL(2,1,0)
+nnoremap <silent> <Plug>(easymotion-tl2) :call EasyMotion#TL(2,0,0)
+snoremap <silent> <Plug>(easymotion-tl2) :call EasyMotion#TL(2,0,0)
+onoremap <silent> <Plug>(easymotion-tl2) :call EasyMotion#TL(2,0,0)
+xnoremap <silent> <Plug>(easymotion-f2) :call EasyMotion#S(2,1,0)
+nnoremap <silent> <Plug>(easymotion-f2) :call EasyMotion#S(2,0,0)
+snoremap <silent> <Plug>(easymotion-f2) :call EasyMotion#S(2,0,0)
+onoremap <silent> <Plug>(easymotion-f2) :call EasyMotion#S(2,0,0)
+xnoremap <silent> <Plug>(easymotion-Fln) :call EasyMotion#SL(-1,1,1)
+nnoremap <silent> <Plug>(easymotion-Fln) :call EasyMotion#SL(-1,0,1)
+snoremap <silent> <Plug>(easymotion-Fln) :call EasyMotion#SL(-1,0,1)
+onoremap <silent> <Plug>(easymotion-Fln) :call EasyMotion#SL(-1,0,1)
+xnoremap <silent> <Plug>(easymotion-sln) :call EasyMotion#SL(-1,1,2)
+nnoremap <silent> <Plug>(easymotion-sln) :call EasyMotion#SL(-1,0,2)
+snoremap <silent> <Plug>(easymotion-sln) :call EasyMotion#SL(-1,0,2)
+onoremap <silent> <Plug>(easymotion-sln) :call EasyMotion#SL(-1,0,2)
+xnoremap <silent> <Plug>(easymotion-tln) :call EasyMotion#TL(-1,1,0)
+nnoremap <silent> <Plug>(easymotion-tln) :call EasyMotion#TL(-1,0,0)
+snoremap <silent> <Plug>(easymotion-tln) :call EasyMotion#TL(-1,0,0)
+onoremap <silent> <Plug>(easymotion-tln) :call EasyMotion#TL(-1,0,0)
+xnoremap <silent> <Plug>(easymotion-fl2) :call EasyMotion#SL(2,1,0)
+nnoremap <silent> <Plug>(easymotion-fl2) :call EasyMotion#SL(2,0,0)
+snoremap <silent> <Plug>(easymotion-fl2) :call EasyMotion#SL(2,0,0)
+onoremap <silent> <Plug>(easymotion-fl2) :call EasyMotion#SL(2,0,0)
+xnoremap <silent> <Plug>(easymotion-bd-fl2) :call EasyMotion#SL(2,1,2)
+nnoremap <silent> <Plug>(easymotion-bd-fl2) :call EasyMotion#SL(2,0,2)
+snoremap <silent> <Plug>(easymotion-bd-fl2) :call EasyMotion#SL(2,0,2)
+onoremap <silent> <Plug>(easymotion-bd-fl2) :call EasyMotion#SL(2,0,2)
+xnoremap <silent> <Plug>(easymotion-T2) :call EasyMotion#T(2,1,1)
+nnoremap <silent> <Plug>(easymotion-T2) :call EasyMotion#T(2,0,1)
+snoremap <silent> <Plug>(easymotion-T2) :call EasyMotion#T(2,0,1)
+onoremap <silent> <Plug>(easymotion-T2) :call EasyMotion#T(2,0,1)
+xnoremap <silent> <Plug>(easymotion-bd-tln) :call EasyMotion#TL(-1,1,2)
+nnoremap <silent> <Plug>(easymotion-bd-tln) :call EasyMotion#TL(-1,0,2)
+snoremap <silent> <Plug>(easymotion-bd-tln) :call EasyMotion#TL(-1,0,2)
+onoremap <silent> <Plug>(easymotion-bd-tln) :call EasyMotion#TL(-1,0,2)
+xnoremap <silent> <Plug>(easymotion-T) :call EasyMotion#T(1,1,1)
+nnoremap <silent> <Plug>(easymotion-T) :call EasyMotion#T(1,0,1)
+snoremap <silent> <Plug>(easymotion-T) :call EasyMotion#T(1,0,1)
+onoremap <silent> <Plug>(easymotion-T) :call EasyMotion#T(1,0,1)
+xnoremap <silent> <Plug>(easymotion-bd-t) :call EasyMotion#T(1,1,2)
+nnoremap <silent> <Plug>(easymotion-bd-t) :call EasyMotion#T(1,0,2)
+snoremap <silent> <Plug>(easymotion-bd-t) :call EasyMotion#T(1,0,2)
+onoremap <silent> <Plug>(easymotion-bd-t) :call EasyMotion#T(1,0,2)
+xnoremap <silent> <Plug>(easymotion-Tn) :call EasyMotion#T(-1,1,1)
+nnoremap <silent> <Plug>(easymotion-Tn) :call EasyMotion#T(-1,0,1)
+snoremap <silent> <Plug>(easymotion-Tn) :call EasyMotion#T(-1,0,1)
+onoremap <silent> <Plug>(easymotion-Tn) :call EasyMotion#T(-1,0,1)
+xnoremap <silent> <Plug>(easymotion-s2) :call EasyMotion#S(2,1,2)
+nnoremap <silent> <Plug>(easymotion-s2) :call EasyMotion#S(2,0,2)
+snoremap <silent> <Plug>(easymotion-s2) :call EasyMotion#S(2,0,2)
+onoremap <silent> <Plug>(easymotion-s2) :call EasyMotion#S(2,0,2)
+xnoremap <silent> <Plug>(easymotion-Tl) :call EasyMotion#TL(1,1,1)
+nnoremap <silent> <Plug>(easymotion-Tl) :call EasyMotion#TL(1,0,1)
+snoremap <silent> <Plug>(easymotion-Tl) :call EasyMotion#TL(1,0,1)
+onoremap <silent> <Plug>(easymotion-Tl) :call EasyMotion#TL(1,0,1)
+xnoremap <silent> <Plug>(easymotion-sn) :call EasyMotion#S(-1,1,2)
+nnoremap <silent> <Plug>(easymotion-sn) :call EasyMotion#S(-1,0,2)
+snoremap <silent> <Plug>(easymotion-sn) :call EasyMotion#S(-1,0,2)
+onoremap <silent> <Plug>(easymotion-sn) :call EasyMotion#S(-1,0,2)
+xnoremap <silent> <Plug>(easymotion-Fn) :call EasyMotion#S(-1,1,1)
+nnoremap <silent> <Plug>(easymotion-Fn) :call EasyMotion#S(-1,0,1)
+snoremap <silent> <Plug>(easymotion-Fn) :call EasyMotion#S(-1,0,1)
+onoremap <silent> <Plug>(easymotion-Fn) :call EasyMotion#S(-1,0,1)
+xnoremap <silent> <Plug>(easymotion-sl) :call EasyMotion#SL(1,1,2)
+nnoremap <silent> <Plug>(easymotion-sl) :call EasyMotion#SL(1,0,2)
+snoremap <silent> <Plug>(easymotion-sl) :call EasyMotion#SL(1,0,2)
+onoremap <silent> <Plug>(easymotion-sl) :call EasyMotion#SL(1,0,2)
+xnoremap <silent> <Plug>(easymotion-Fl) :call EasyMotion#SL(1,1,1)
+nnoremap <silent> <Plug>(easymotion-Fl) :call EasyMotion#SL(1,0,1)
+snoremap <silent> <Plug>(easymotion-Fl) :call EasyMotion#SL(1,0,1)
+onoremap <silent> <Plug>(easymotion-Fl) :call EasyMotion#SL(1,0,1)
+xnoremap <silent> <Plug>(easymotion-sl2) :call EasyMotion#SL(2,1,2)
+nnoremap <silent> <Plug>(easymotion-sl2) :call EasyMotion#SL(2,0,2)
+snoremap <silent> <Plug>(easymotion-sl2) :call EasyMotion#SL(2,0,2)
+onoremap <silent> <Plug>(easymotion-sl2) :call EasyMotion#SL(2,0,2)
+xnoremap <silent> <Plug>(easymotion-bd-fln) :call EasyMotion#SL(-1,1,2)
+nnoremap <silent> <Plug>(easymotion-bd-fln) :call EasyMotion#SL(-1,0,2)
+snoremap <silent> <Plug>(easymotion-bd-fln) :call EasyMotion#SL(-1,0,2)
+onoremap <silent> <Plug>(easymotion-bd-fln) :call EasyMotion#SL(-1,0,2)
+xnoremap <silent> <Plug>(easymotion-F) :call EasyMotion#S(1,1,1)
+nnoremap <silent> <Plug>(easymotion-F) :call EasyMotion#S(1,0,1)
+snoremap <silent> <Plug>(easymotion-F) :call EasyMotion#S(1,0,1)
+onoremap <silent> <Plug>(easymotion-F) :call EasyMotion#S(1,0,1)
+xnoremap <silent> <Plug>(easymotion-bd-f) :call EasyMotion#S(1,1,2)
+nnoremap <silent> <Plug>(easymotion-bd-f) :call EasyMotion#S(1,0,2)
+snoremap <silent> <Plug>(easymotion-bd-f) :call EasyMotion#S(1,0,2)
+onoremap <silent> <Plug>(easymotion-bd-f) :call EasyMotion#S(1,0,2)
+xnoremap <silent> <Plug>(easymotion-F2) :call EasyMotion#S(2,1,1)
+nnoremap <silent> <Plug>(easymotion-F2) :call EasyMotion#S(2,0,1)
+snoremap <silent> <Plug>(easymotion-F2) :call EasyMotion#S(2,0,1)
+onoremap <silent> <Plug>(easymotion-F2) :call EasyMotion#S(2,0,1)
+xnoremap <silent> <Plug>(easymotion-bd-f2) :call EasyMotion#S(2,1,2)
+nnoremap <silent> <Plug>(easymotion-bd-f2) :call EasyMotion#S(2,0,2)
+snoremap <silent> <Plug>(easymotion-bd-f2) :call EasyMotion#S(2,0,2)
+onoremap <silent> <Plug>(easymotion-bd-f2) :call EasyMotion#S(2,0,2)
+xnoremap <silent> <Plug>(easymotion-Tl2) :call EasyMotion#TL(2,1,1)
+nnoremap <silent> <Plug>(easymotion-Tl2) :call EasyMotion#TL(2,0,1)
+snoremap <silent> <Plug>(easymotion-Tl2) :call EasyMotion#TL(2,0,1)
+onoremap <silent> <Plug>(easymotion-Tl2) :call EasyMotion#TL(2,0,1)
+xnoremap <silent> <Plug>(easymotion-fln) :call EasyMotion#SL(-1,1,0)
+nnoremap <silent> <Plug>(easymotion-fln) :call EasyMotion#SL(-1,0,0)
+snoremap <silent> <Plug>(easymotion-fln) :call EasyMotion#SL(-1,0,0)
+onoremap <silent> <Plug>(easymotion-fln) :call EasyMotion#SL(-1,0,0)
 xnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("x", "Uncomment")
 nnoremap <silent> <Plug>NERDCommenterUncomment :call NERDComment("n", "Uncomment")
 xnoremap <silent> <Plug>NERDCommenterAlignBoth :call NERDComment("x", "AlignBoth")
@@ -151,6 +498,7 @@ nnoremap <Plug>(EmmetBalanceTagInward) :call emmet#balanceTag(1)
 nnoremap <Plug>(EmmetExpandWord) :call emmet#expandAbbr(1,"")
 vnoremap <Plug>(EmmetExpandAbbr) :call emmet#expandAbbr(2,"")
 nnoremap <Plug>(EmmetExpandAbbr) :call emmet#expandAbbr(3,"")
+nnoremap <silent> <Plug>Colorizer :ColorToggle
 nnoremap <SNR>1_I_won’t_ever_type_this <Plug>IMAP_JumpForward
 map <F3> :NERDTreeToggle 
 nmap <silent> <C-Up> +
@@ -185,17 +533,15 @@ unlet s:cpo_save
 set autoindent
 set backspace=indent,eol,start
 set completefunc=neocomplcache#complete#manual_complete
-set completeopt=menu
 set cryptmethod=blowfish
 set expandtab
 set exrc
 set fileencodings=ucs-bom,utf-8,default,latin1
 set helplang=en
 set hidden
-set isident=@,48-57,_,192-255,$
 set pastetoggle=<F2>
 set ruler
-set runtimepath=~/.vim,~/.vim/bundle/Javascript-Indent,~/.vim/bundle/command-t,~/.vim/bundle/delimitMate,~/.vim/bundle/emmet-vim,~/.vim/bundle/neocomplcache.vim,~/.vim/bundle/nerdcommenter,~/.vim/bundle/nerdtree,~/.vim/bundle/syntastic,~/.vim/bundle/vim-coffee-script,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/vim-cucumber,~/.vim/bundle/vim-endwise,~/.vim/bundle/vim-latex,~/.vim/bundle/vim-less,~/.vim/bundle/vim-literate-coffeescript,~/.vim/bundle/vim-rails,~/.vim/bundle/vim-repeat,~/.vim/bundle/vim-slime,~/.vim/bundle/vim-stylus,~/.vim/bundle/vim-surround,/usr/local/share/vim/vim73/vimfiles,/usr/local/share/vim/vim73,/usr/local/share/vim/vim73/vimfiles/after,~/.vim/bundle/vim-coffee-script/after,~/.vim/after
+set runtimepath=~/.vim,~/.vim/bundle/Javascript-Indent,~/.vim/bundle/colorizer,~/.vim/bundle/ctrlp,~/.vim/bundle/delimitMate,~/.vim/bundle/emmet-vim,~/.vim/bundle/neocomplcache,~/.vim/bundle/neocomplcache.vim,~/.vim/bundle/nerdcommenter,~/.vim/bundle/nerdtree,~/.vim/bundle/rainbow-parentheses,~/.vim/bundle/syntastic,~/.vim/bundle/vim-airline,~/.vim/bundle/vim-coffee-script,~/.vim/bundle/vim-colors-solarized,~/.vim/bundle/vim-cucumber,~/.vim/bundle/vim-easymotion,~/.vim/bundle/vim-endwise,~/.vim/bundle/vim-fugitive,~/.vim/bundle/vim-latex,~/.vim/bundle/vim-less,~/.vim/bundle/vim-literate-coffeescript,~/.vim/bundle/vim-powerline,~/.vim/bundle/vim-rails,~/.vim/bundle/vim-repeat,~/.vim/bundle/vim-slime,~/.vim/bundle/vim-stylus,~/.vim/bundle/vim-surround,/usr/local/share/vim/vim73/vimfiles,/usr/local/share/vim/vim73,/usr/local/share/vim/vim73/vimfiles/after,~/.vim/bundle/vim-coffee-script/after,~/.vim/after
 set secure
 set shiftwidth=2
 set showmatch
@@ -213,47 +559,191 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +10 app/controllers/application_controller.rb
+badd +0 app/presenters/geo_mapping.rb
 badd +0 app/controllers/lings_controller.rb
 silent! argdel *
-edit app/controllers/lings_controller.rb
+edit app/presenters/geo_mapping.rb
 set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
 wincmd t
 set winheight=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 31 + 56) / 113)
+exe 'vert 2resize ' . ((&columns * 81 + 56) / 113)
 argglobal
+enew
+file NERD_tree_1
 let s:cpo_save=&cpo
 set cpo&vim
-imap <buffer> <RightMouse> <Plug>delimitMateMRightMouse
-imap <buffer> <LeftMouse> <Plug>delimitMateMLeftMouse
-imap <buffer> <S-Up> <Plug>delimitMateS-Up
-imap <buffer> <S-Down> <Plug>delimitMateS-Down
-imap <buffer> <PageDown> <Plug>delimitMatePageDown
-imap <buffer> <PageUp> <Plug>delimitMatePageUp
-imap <buffer> <Down> <Plug>delimitMateDown
-imap <buffer> <Up> <Plug>delimitMateUp
-imap <buffer> <C-Right> <Plug>delimitMateC-Right
-imap <buffer> <C-Left> <Plug>delimitMateC-Left
-imap <buffer> <End> <Plug>delimitMateEnd
-imap <buffer> <Home> <Plug>delimitMateHome
-imap <buffer> <Right> <Plug>delimitMateRight
-imap <buffer> <Left> <Plug>delimitMateLeft
-imap <buffer> <Del> <Plug>delimitMateDel
 imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
 imap <buffer> <S-BS> <Plug>delimitMateS-BS
 imap <buffer> <BS> <Plug>delimitMateBS
-inoremap <buffer> <Plug>delimitMateJumpMany =len(delimitMate#Get('buffer')) ? delimitMate#Finish(0) : delimitMate#JumpMany()
-imap <buffer> <C-ScrollWheelRight> <Plug>delimitMateC-ScrollWheelRight
-imap <buffer> <S-ScrollWheelRight> <Plug>delimitMateS-ScrollWheelRight
-imap <buffer> <ScrollWheelRight> <Plug>delimitMateScrollWheelRight
-imap <buffer> <C-ScrollWheelLeft> <Plug>delimitMateC-ScrollWheelLeft
-imap <buffer> <S-ScrollWheelLeft> <Plug>delimitMateS-ScrollWheelLeft
-imap <buffer> <ScrollWheelLeft> <Plug>delimitMateScrollWheelLeft
-imap <buffer> <C-ScrollWheelDown> <Plug>delimitMateC-ScrollWheelDown
-imap <buffer> <S-ScrollWheelDown> <Plug>delimitMateS-ScrollWheelDown
-imap <buffer> <ScrollWheelDown> <Plug>delimitMateScrollWheelDown
-imap <buffer> <C-ScrollWheelUp> <Plug>delimitMateC-ScrollWheelUp
-imap <buffer> <S-ScrollWheelUp> <Plug>delimitMateS-ScrollWheelUp
-imap <buffer> <ScrollWheelUp> <Plug>delimitMateScrollWheelUp
+nnoremap <buffer> <silent> <NL> :call nerdtree#invokeKeyMap("<C-j>")
+nnoremap <buffer> <silent>  :call nerdtree#invokeKeyMap("<C-k>")
+nnoremap <buffer> <silent>  :call nerdtree#invokeKeyMap('o')
+nmap <buffer> gf <Plug>RailsTabFind
+nmap <buffer> f <Plug>RailsSplitFind
+nnoremap <buffer> <silent> ? :call nerdtree#invokeKeyMap("?")
+nnoremap <buffer> <silent> A :call nerdtree#invokeKeyMap("A")
+nnoremap <buffer> <silent> B :call nerdtree#invokeKeyMap("B")
+nnoremap <buffer> <silent> CD :call nerdtree#invokeKeyMap("CD")
+nnoremap <buffer> <silent> C :call nerdtree#invokeKeyMap("C")
+nnoremap <buffer> <silent> D :call nerdtree#invokeKeyMap("D")
+nnoremap <buffer> <silent> F :call nerdtree#invokeKeyMap("F")
+nnoremap <buffer> <silent> I :call nerdtree#invokeKeyMap("I")
+nnoremap <buffer> <silent> J :call nerdtree#invokeKeyMap("J")
+nnoremap <buffer> <silent> K :call nerdtree#invokeKeyMap("K")
+nnoremap <buffer> <silent> O :call nerdtree#invokeKeyMap("O")
+nnoremap <buffer> <silent> P :call nerdtree#invokeKeyMap("P")
+nnoremap <buffer> <silent> R :call nerdtree#invokeKeyMap("R")
+nnoremap <buffer> <silent> T :call nerdtree#invokeKeyMap("T")
+nnoremap <buffer> <silent> U :call nerdtree#invokeKeyMap("U")
+nnoremap <buffer> <silent> X :call nerdtree#invokeKeyMap("X")
+nnoremap <buffer> <silent> cd :call nerdtree#invokeKeyMap("cd")
+nnoremap <buffer> <silent> e :call nerdtree#invokeKeyMap("e")
+nnoremap <buffer> <silent> f :call nerdtree#invokeKeyMap("f")
+nmap <buffer> gf <Plug>RailsFind
+nnoremap <buffer> <silent> gi :call nerdtree#invokeKeyMap("gi")
+nnoremap <buffer> <silent> gu :call nerdtree#invokeKeyMap("gu")
+nnoremap <buffer> <silent> go :call nerdtree#invokeKeyMap("go")
+nnoremap <buffer> <silent> i :call nerdtree#invokeKeyMap("i")
+nnoremap <buffer> <silent> m :call nerdtree#invokeKeyMap("m")
+nnoremap <buffer> <silent> o :call nerdtree#invokeKeyMap("o")
+nnoremap <buffer> <silent> p :call nerdtree#invokeKeyMap("p")
+nnoremap <buffer> <silent> q :call nerdtree#invokeKeyMap("q")
+nnoremap <buffer> <silent> r :call nerdtree#invokeKeyMap("r")
+nnoremap <buffer> <silent> t :call nerdtree#invokeKeyMap("t")
+nnoremap <buffer> <silent> u :call nerdtree#invokeKeyMap("u")
+nnoremap <buffer> <silent> x :call nerdtree#invokeKeyMap("x")
+nnoremap <buffer> <silent> <2-LeftMouse> :call nerdtree#invokeKeyMap("<2-LeftMouse>")
+nnoremap <buffer> <silent> <LeftRelease> <LeftRelease>:call nerdtree#invokeKeyMap("<LeftRelease>")
+nnoremap <buffer> <silent> <MiddleRelease> :call nerdtree#invokeKeyMap("<MiddleRelease>")
+imap <buffer> <silent> g <Plug>delimitMateJumpMany
+imap <buffer> " <Plug>delimitMate"
+imap <buffer> ' <Plug>delimitMate'
+imap <buffer> ( <Plug>delimitMate(
+imap <buffer> ) <Plug>delimitMate)
+imap <buffer> [ <Plug>delimitMate[
+imap <buffer> ] <Plug>delimitMate]
+imap <buffer> ` <Plug>delimitMate`
+imap <buffer> { <Plug>delimitMate{
+imap <buffer> } <Plug>delimitMate}
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal balloonexpr=
+setlocal nobinary
+setlocal bufhidden=hide
+setlocal nobuflisted
+setlocal buftype=nofile
+setlocal nocindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-
+setlocal commentstring=/*%s*/
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal cursorline
+setlocal define=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'nerdtree'
+setlocal filetype=nerdtree
+endif
+setlocal foldcolumn=0
+setlocal nofoldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=tcq
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=2
+setlocal imsearch=2
+setlocal include=
+setlocal includeexpr=RailsIncludeexpr()
+setlocal indentexpr=
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal nolist
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal nomodifiable
+setlocal nrformats=octal,hex
+set number
+setlocal nonumber
+set numberwidth=3
+setlocal numberwidth=3
+setlocal omnifunc=
+setlocal path=.,lib,vendor,app/models/concerns,app/controllers/concerns,app/controllers,app/helpers,app/mailers,app/models,app/*,app/views,spec,spec/controllers,spec/helpers,spec/mailers,spec/models,spec/views,spec/lib,spec/features,spec/requests,spec/integration,features,vendor/plugins/*/lib,vendor/plugins/*/test,vendor/rails/*/lib,vendor/rails/*/test,~/Documents/Linguistic-Explorer,/usr/include,
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal smartindent
+setlocal softtabstop=2
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=%!airline#statusline(1)
+setlocal suffixesadd=.rb
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != 'nerdtree'
+setlocal syntax=nerdtree
+endif
+setlocal tabstop=2
+setlocal tags=~/Documents/Linguistic-Explorer/tags,~/Documents/Linguistic-Explorer/tmp/tags,~/Documents/Linguistic-Explorer/.git/nerdtree.tags,~/Documents/Linguistic-Explorer/.git/tags,./tags,./TAGS,tags,TAGS
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal nowinfixheight
+setlocal winfixwidth
+set nowrap
+setlocal nowrap
+setlocal wrapmargin=0
+wincmd w
+argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
+imap <buffer> <S-BS> <Plug>delimitMateS-BS
+imap <buffer> <BS> <Plug>delimitMateBS
 nmap <buffer> gf <Plug>RailsTabFind
 nmap <buffer> f <Plug>RailsSplitFind
 nnoremap <buffer> <silent> g} :exe        "ptjump =RubyCursorIdentifier()"
@@ -296,7 +786,7 @@ setlocal commentstring=#\ %s
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
-setlocal completefunc=neocomplcache#complete#manual_complete
+setlocal completefunc=syntaxcomplete#Complete
 setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
@@ -346,14 +836,14 @@ set number
 setlocal number
 set numberwidth=3
 setlocal numberwidth=3
-setlocal omnifunc=rubycomplete#Complete
-setlocal path=.,lib,vendor,app/models/concerns,app/controllers/concerns,app/controllers,app/helpers,app/mailers,app/models,app/*,app/views,app/views/lings,public,spec,spec/controllers,spec/helpers,spec/mailers,spec/models,spec/views,spec/lib,spec/features,spec/requests,spec/integration,features,vendor/plugins/*/lib,vendor/plugins/*/test,vendor/rails/*/lib,vendor/rails/*/test,~/Documents/Linguistic-Explorer,NOTE:\\\ Gem.all_load_paths\\\ is\\\ deprecated\\\ with\\\ no\\\ replacement.\\\ It\\\ will\\\ be\\\ removed\\\ on\\\ or\\\ after\\\ 2011-10-01.\
+setlocal omnifunc=
+setlocal path=.,lib,vendor,app/models/concerns,app/controllers/concerns,app/controllers,app/helpers,app/mailers,app/models,app/*,app/views,spec,spec/controllers,spec/helpers,spec/mailers,spec/models,spec/views,spec/lib,spec/features,spec/requests,spec/integration,features,vendor/plugins/*/lib,vendor/plugins/*/test,vendor/rails/*/lib,vendor/rails/*/test,~/Documents/Linguistic-Explorer,NOTE:\\\ Gem.all_load_paths\\\ is\\\ deprecated\\\ with\\\ no\\\ replacement.\\\ It\\\ will\\\ be\\\ removed\\\ on\\\ or\\\ after\\\ 2011-10-01.\
 Gem.all_load_paths\\\ called\\\ from\\\ -e:1.\
 NOTE:\\\ Gem.all_partials\\\ is\\\ deprecated\\\ with\\\ no\\\ replacement.\\\ It\\\ will\\\ be\\\ removed\\\ on\\\ or\\\ after\\\ 2011-10-01.\
 Gem.all_partials\\\ called\\\ from\\\ ~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby/1.9.1/rubygems.rb:261.\
 NOTE:\\\ Gem.all_partials\\\ is\\\ deprecated\\\ with\\\ no\\\ replacement.\\\ It\\\ will\\\ be\\\ removed\\\ on\\\ or\\\ after\\\ 2011-10-01.\
 Gem.all_partials\\\ called\\\ from\\\ ~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby/1.9.1/rubygems.rb:261.\
-/home/ling/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby/1.9.1,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby/1.9.1/x86_64-linux,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/vendor_ruby/1.9.1,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/vendor_ruby/1.9.1/x86_64-linux,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/vendor_ruby,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/1.9.1,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/1.9.1/x86_64-linux,~/.rvm/gems/ruby-1.9.3-p392/gems/Selenium-1.1.14/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/abstract-1.0.0/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activeresource-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activeresource-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activeresource-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/addressable-2.3.2/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/addressable-2.3.4/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/addressable-2.3.5/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.0/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.2/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.4/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.5/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.6/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.1/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.10/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.2/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.4/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.5/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.6/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.7/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.8/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-1.0.1/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-1.0.10/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-1.0.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-1.0.2/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-1.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetic
+/home/ling/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby/1.9.1,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby/1.9.1/x86_64-linux,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/vendor_ruby/1.9.1,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/vendor_ruby/1.9.1/x86_64-linux,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/vendor_ruby,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/1.9.1,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/1.9.1/x86_64-linux,~/.rvm/gems/ruby-1.9.3-p392/gems/Selenium-1.1.14/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/abstract-1.0.0/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-3.0.20/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-4.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-3.0.20/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-4.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-3.0.20/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-4.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-3.0.20/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-4.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-deprecated_finders-1.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activeresource-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activeresource-3.0.20/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activeresource-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activeresource-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-3.0.20/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-4.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/addressable-2.3.2/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/addressable-2.3.4/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/addressable-2.3.5/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.0/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.2/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.4/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.5/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.6/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.1/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.10/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.2/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.3/lib,~/.rvm/gems/ruby-1.9.3-
 setlocal nopreserveindent
 setlocal nopreviewwindow
 setlocal quoteescape=\\
@@ -371,7 +861,7 @@ setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
-setlocal statusline=
+setlocal statusline=%!airline#statusline(2)
 setlocal suffixesadd=.rb
 setlocal swapfile
 setlocal synmaxcol=3000
@@ -379,23 +869,179 @@ if &syntax != 'ruby'
 setlocal syntax=ruby
 endif
 setlocal tabstop=2
-setlocal tags=~/Documents/Linguistic-Explorer/tags,~/Documents/Linguistic-Explorer/tmp/tags,./tags,./TAGS,tags,TAGS
+setlocal tags=~/Documents/Linguistic-Explorer/tags,~/Documents/Linguistic-Explorer/tmp/tags,~/Documents/Linguistic-Explorer/.git/ruby.tags,~/Documents/Linguistic-Explorer/.git/tags,./tags,./TAGS,tags,TAGS
 setlocal textwidth=0
 setlocal thesaurus=
 setlocal noundofile
+setlocal undolevels=-123456
 setlocal nowinfixheight
 setlocal nowinfixwidth
 set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 55 - ((6 * winheight(0) + 17) / 35)
+let s:l = 1 - ((0 * winheight(0) + 17) / 34)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-55
-normal! 021l
-tabnext 1
+1
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 31 + 56) / 113)
+exe 'vert 2resize ' . ((&columns * 81 + 56) / 113)
+tabedit app/controllers/lings_controller.rb
+set splitbelow splitright
+wincmd t
+set winheight=1 winwidth=1
+argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
+imap <buffer> <S-BS> <Plug>delimitMateS-BS
+imap <buffer> <BS> <Plug>delimitMateBS
+nmap <buffer> gf <Plug>RailsTabFind
+nmap <buffer> f <Plug>RailsSplitFind
+nnoremap <buffer> <silent> g} :exe        "ptjump =RubyCursorIdentifier()"
+nnoremap <buffer> <silent> } :exe          "ptag =RubyCursorIdentifier()"
+nnoremap <buffer> <silent> g] :exe      "stselect =RubyCursorIdentifier()"
+nnoremap <buffer> <silent> g :exe        "stjump =RubyCursorIdentifier()"
+nnoremap <buffer> <silent>  :exe v:count1."stag =RubyCursorIdentifier()"
+nnoremap <buffer> <silent> ] :exe v:count1."stag =RubyCursorIdentifier()"
+nnoremap <buffer> <silent>  :exe  v:count1."tag =RubyCursorIdentifier()"
+nmap <buffer> gf <Plug>RailsFind
+nnoremap <buffer> <silent> g] :exe       "tselect =RubyCursorIdentifier()"
+nnoremap <buffer> <silent> g :exe         "tjump =RubyCursorIdentifier()"
+imap <buffer> <silent> g <Plug>delimitMateJumpMany
+imap <buffer> " <Plug>delimitMate"
+imap <buffer> ' <Plug>delimitMate'
+imap <buffer> ( <Plug>delimitMate(
+imap <buffer> ) <Plug>delimitMate)
+imap <buffer> [ <Plug>delimitMate[
+imap <buffer> ] <Plug>delimitMate]
+imap <buffer> ` <Plug>delimitMate`
+imap <buffer> { <Plug>delimitMate{
+imap <buffer> } <Plug>delimitMate}
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal balloonexpr=RubyBalloonexpr()
+setlocal nobinary
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal nocindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=:#
+setlocal commentstring=#\ %s
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=syntaxcomplete#Complete
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=^\\s*def\\s\\+\\(self\\.\\)\\=
+setlocal dictionary=
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal expandtab
+if &filetype != 'ruby'
+setlocal filetype=ruby
+endif
+setlocal foldcolumn=0
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=manual
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=2
+setlocal imsearch=2
+setlocal include=^\\s*\\<\\(load\\|w*require\\)\\>
+setlocal includeexpr=RailsIncludeexpr()
+setlocal indentexpr=GetRubyIndent()
+setlocal indentkeys=0{,0},0),0],!^F,o,O,e,=end,=elsif,=when,=ensure,=rescue,==begin,==end
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=ri
+setlocal nolinebreak
+setlocal nolisp
+setlocal nolist
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+set number
+setlocal number
+set numberwidth=3
+setlocal numberwidth=3
+setlocal omnifunc=
+setlocal path=.,lib,vendor,app/models/concerns,app/controllers/concerns,app/controllers,app/helpers,app/mailers,app/models,app/*,app/views,app/views/lings,public,spec,spec/controllers,spec/helpers,spec/mailers,spec/models,spec/views,spec/lib,spec/features,spec/requests,spec/integration,features,vendor/plugins/*/lib,vendor/plugins/*/test,vendor/rails/*/lib,vendor/rails/*/test,~/Documents/Linguistic-Explorer,NOTE:\\\ Gem.all_load_paths\\\ is\\\ deprecated\\\ with\\\ no\\\ replacement.\\\ It\\\ will\\\ be\\\ removed\\\ on\\\ or\\\ after\\\ 2011-10-01.\
+Gem.all_load_paths\\\ called\\\ from\\\ -e:1.\
+NOTE:\\\ Gem.all_partials\\\ is\\\ deprecated\\\ with\\\ no\\\ replacement.\\\ It\\\ will\\\ be\\\ removed\\\ on\\\ or\\\ after\\\ 2011-10-01.\
+Gem.all_partials\\\ called\\\ from\\\ ~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby/1.9.1/rubygems.rb:261.\
+NOTE:\\\ Gem.all_partials\\\ is\\\ deprecated\\\ with\\\ no\\\ replacement.\\\ It\\\ will\\\ be\\\ removed\\\ on\\\ or\\\ after\\\ 2011-10-01.\
+Gem.all_partials\\\ called\\\ from\\\ ~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby/1.9.1/rubygems.rb:261.\
+/home/ling/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby/1.9.1,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby/1.9.1/x86_64-linux,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/site_ruby,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/vendor_ruby/1.9.1,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/vendor_ruby/1.9.1/x86_64-linux,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/vendor_ruby,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/1.9.1,~/.rvm/rubies/ruby-1.9.3-p392/lib/ruby/1.9.1/x86_64-linux,~/.rvm/gems/ruby-1.9.3-p392/gems/Selenium-1.1.14/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/abstract-1.0.0/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-3.0.20/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionmailer-4.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-3.0.20/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/actionpack-4.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-3.0.20/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activemodel-4.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-3.0.20/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-4.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activerecord-deprecated_finders-1.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activeresource-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activeresource-3.0.20/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activeresource-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activeresource-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-3.0.17/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-3.0.20/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-3.2.11/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-3.2.13/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/activesupport-4.0.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/addressable-2.3.2/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/addressable-2.3.4/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/addressable-2.3.5/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.0/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.2/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.3/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.4/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.5/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.1.6/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.1/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.10/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.2/lib,~/.rvm/gems/ruby-1.9.3-p392/gems/alphabetical_paginate-0.2.3/lib,
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal relativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=2
+setlocal noshortname
+setlocal nosmartindent
+setlocal softtabstop=2
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=%!airline#statusline(1)
+setlocal suffixesadd=.rb
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'ruby'
+setlocal syntax=ruby
+endif
+setlocal tabstop=2
+setlocal tags=~/Documents/Linguistic-Explorer/tags,~/Documents/Linguistic-Explorer/tmp/tags,~/Documents/Linguistic-Explorer/.git/ruby.tags,~/Documents/Linguistic-Explorer/.git/tags,./tags,./TAGS,tags,TAGS
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal undolevels=-123456
+setlocal nowinfixheight
+setlocal nowinfixwidth
+set nowrap
+setlocal nowrap
+setlocal wrapmargin=0
+silent! normal! zE
+let s:l = 71 - ((23 * winheight(0) + 17) / 34)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+71
+normal! 09|
+tabnext 2
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

@@ -2,11 +2,6 @@ let SessionLoad = 1
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-inoremap <silent> <Plug>(neocomplcache_start_omni_complete) 
-inoremap <silent> <Plug>(neocomplcache_start_auto_complete_no_select) 
-inoremap <silent> <Plug>(neocomplcache_start_auto_complete) =neocomplcache#mappings#popup_post()
-inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_quick_match) unite#sources#neocomplcache#start_quick_match()
-inoremap <silent> <expr> <Plug>(neocomplcache_start_unite_complete) unite#sources#neocomplcache#start_complete()
 imap <silent> <Plug>IMAP_JumpBack =IMAP_Jumpfunc('b', 0)
 imap <silent> <Plug>IMAP_JumpForward =IMAP_Jumpfunc('', 0)
 inoremap <silent> <Plug>NERDCommenterInsert  <BS>:call NERDComment('i', "insert")
@@ -532,8 +527,7 @@ let &cpo=s:cpo_save
 unlet s:cpo_save
 set autoindent
 set backspace=indent,eol,start
-set completefunc=neocomplcache#complete#manual_complete
-set completeopt=preview,menuone
+set balloonexpr=SyntasticBalloonsExprNotifier()
 set cryptmethod=blowfish
 set expandtab
 set exrc
@@ -560,9 +554,9 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 lib/utilities.litcoffee
-silent! argdel *
-edit lib/utilities.litcoffee
+badd +0 ~/Documents/programmingContest/week2/1/sol.cpp
+args ~/Documents/programmingContest/week2/1/sol.cpp
+edit ~/Documents/programmingContest/week2/1/sol.cpp
 set splitbelow splitright
 wincmd t
 set winheight=1 winwidth=1
@@ -592,17 +586,17 @@ setlocal nobinary
 setlocal bufhidden=
 setlocal buflisted
 setlocal buftype=
-setlocal nocindent
+setlocal cindent
 setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
 setlocal cinoptions=
 setlocal cinwords=if,else,while,do,for,switch
 setlocal colorcolumn=
-setlocal comments=:#
-setlocal commentstring=#\ %s
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+setlocal commentstring=/*%s*/
 setlocal complete=.,w,b,u,t,i
 setlocal concealcursor=
 setlocal conceallevel=0
-setlocal completefunc=neocomplcache#complete#auto_complete
+setlocal completefunc=
 setlocal nocopyindent
 setlocal cryptmethod=
 setlocal nocursorbind
@@ -612,10 +606,10 @@ setlocal define=
 setlocal dictionary=
 setlocal nodiff
 setlocal equalprg=
-setlocal errorformat=Error:\ In\ %f\\,\ %m\ on\ line\ %l,Error:\ In\ %f\\,\ Parse\ error\ on\ line\ %l:\ %m,SyntaxError:\ In\ %f\\,\ %m,%f:%l:%c:\ error:\ %m,%-G%.%#
+setlocal errorformat=
 setlocal expandtab
-if &filetype != 'litcoffee'
-setlocal filetype=litcoffee
+if &filetype != 'cpp'
+setlocal filetype=cpp
 endif
 setlocal foldcolumn=0
 setlocal foldenable
@@ -628,22 +622,22 @@ setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldtext=foldtext()
 setlocal formatexpr=
-setlocal formatoptions=croqlt
+setlocal formatoptions=croql
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
 setlocal iminsert=2
 setlocal imsearch=2
 setlocal include=
 setlocal includeexpr=
-setlocal indentexpr=GetLitCoffeeIndent()
-setlocal indentkeys=0{,0},:,0#,!^F,o,O,e,0],0),0.,=else,=when,=catch,=finally
+setlocal indentexpr=
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
 setlocal noinfercase
 setlocal iskeyword=@,48-57,_,192-255
 setlocal keywordprg=
 setlocal nolinebreak
 setlocal nolisp
 setlocal nolist
-setlocal makeprg=coffee\ -c\ --literate\ \ $*\ lib/utilities.litcoffee
+setlocal makeprg=
 setlocal matchpairs=(:),{:},[:]
 setlocal modeline
 setlocal modifiable
@@ -652,7 +646,7 @@ set number
 setlocal number
 set numberwidth=3
 setlocal numberwidth=3
-setlocal omnifunc=javascriptcomplete#CompleteJS
+setlocal omnifunc=ccomplete#Complete
 setlocal path=
 setlocal nopreserveindent
 setlocal nopreviewwindow
@@ -671,15 +665,15 @@ setlocal nospell
 setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
 setlocal spellfile=
 setlocal spelllang=en
-setlocal statusline=%!airline#statusline(2)
+setlocal statusline=%!airline#statusline(1)
 setlocal suffixesadd=
 setlocal swapfile
 setlocal synmaxcol=3000
-if &syntax != 'litcoffee'
-setlocal syntax=litcoffee
+if &syntax != 'cpp'
+setlocal syntax=cpp
 endif
 setlocal tabstop=2
-setlocal tags=~/Documents/yallame/.git/litcoffee.tags,~/Documents/yallame/.git/tags,./tags,./TAGS,tags,TAGS
+setlocal tags=
 setlocal textwidth=0
 setlocal thesaurus=
 setlocal noundofile
@@ -690,12 +684,12 @@ set nowrap
 setlocal nowrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 137 - ((68 * winheight(0) + 35) / 71)
+let s:l = 40 - ((34 * winheight(0) + 17) / 35)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-137
-normal! 09|
+40
+normal! 0
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
