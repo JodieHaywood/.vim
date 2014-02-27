@@ -88,3 +88,6 @@
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+[submodule "bundle/vim-zenmode"]
+	path = bundle/vim-zenmode
+	url = https://github.com/mmai/vim-zenmode.git
