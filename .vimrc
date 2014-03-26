@@ -31,6 +31,9 @@ set t_Co=256
 " Fix for ssh to let NERDTREE work with different locale
 let g:NERDTreeDirArrows=0
 
+" Coffeescript fixes
+autocmd BufNewFile,BufReadPost *.coffee,*.litcoffee setl shiftwidth=2 expandtab
+
 " neocomplete
 let g:acp_enableAtStartup = 0
 let g:neocomplcache_enable_at_startup = 1
