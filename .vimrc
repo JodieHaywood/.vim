@@ -124,20 +124,6 @@ set secure
 autocmd FileType javascript inoremap (; ();<Esc>hi
 autocmd FileType javascript inoremap {<CR> {<CR>}<Esc><S-o><Tab>
 
-
-" Word Processing Mode
-func! WordProcessorMode()
-  setlocal formatoptions=t1
-  setlocal textwidth=80
-  map j gj
-  map k gk
-  set formatprg=par
-  setlocal smartindent
-  setlocal spell spelllang=en_us
-  setlocal noexpandtab
-endfu
-com! WP call WordProcessorMode()
-
 " Creates a session
 function! MakeSession()
   let b:sessiondir = $HOME . "/.vim/sessions" . getcwd()
