@@ -69,6 +69,10 @@ let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
+hi Pmenu ctermbg=8
+hi PmenuSel ctermbg=1
+hi PmenuSbar ctermbg=0
+
 " key miss catches
 command WQ wq
 command Wq wq
