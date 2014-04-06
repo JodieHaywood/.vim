@@ -28,6 +28,10 @@ set ruler
 set smarttab
 set t_Co=256
 
+" Let the line width be 78 characters, as there are mysterious extra
+" double newlines added which makes the linter complain
+set tw=78
+
 " Fix for ssh to let NERDTREE work with different locale
 let g:NERDTreeDirArrows=0
 
@@ -210,12 +214,6 @@ let g:Imap_FreezeImap=1
 let g:Tex_Leader = '`tex'
 let g:Tex_Leader2 = ',tex'
 nnoremap <SID>I_won’t_ever_type_this <Plug>IMAP_JumpForward
-
-" lint the current file
-function! CoffeeLintFile()
-  let current = fnamemodify(expand("%"), ':p')
-  exec ":!coffeelint " . current 
-endfunction
  
 " These are my shortcuts, you will probably want your own
 map <leader>cx :call CoffeeLintFile()<cr>
