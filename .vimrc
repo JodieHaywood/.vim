@@ -83,6 +83,10 @@ command Wq wq
 command W w
 command Q q
 
+" javascript
+autocmd FileType javascript inoremap {<CR> {<CR>}<Esc><S-o>
+let g:syntastic_check_on_open=1
+
 " line numbers
 set number
 set numberwidth=3
@@ -130,10 +134,6 @@ autocmd VimEnter * call StartUp()
 set cm=blowfish
 set exrc
 set secure
-
-" javascript
-autocmd FileType javascript inoremap (; ();<Esc>hi
-autocmd FileType javascript inoremap {<CR> {<CR>}<Esc><S-o><Tab>
 
 " Creates a session
 function! MakeSession()

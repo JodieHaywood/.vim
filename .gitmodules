@@ -91,3 +91,9 @@
 [submodule "bundle/vim-zenmode"]
 	path = bundle/vim-zenmode
 	url = https://github.com/mmai/vim-zenmode.git
+[submodule "bundle/vim-javascript-syntax"]
+	path = bundle/vim-javascript-syntax
+	url = https://github.com/jelera/vim-javascript-syntax.git
+[submodule "bundle/vim-indent-guides"]
+	path = bundle/vim-indent-guides
+	url = https://github.com/nathanaelkane/vim-indent-guides.git
