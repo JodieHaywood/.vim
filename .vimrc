@@ -28,10 +28,6 @@ set ruler
 set smarttab
 set t_Co=256
 
-" Let the line width be 78 characters, as there are mysterious extra
-" double newlines added which makes the linter complain
-set tw=78
-
 " Fix for ssh to let NERDTREE work with different locale
 let g:NERDTreeDirArrows=0
 
@@ -73,8 +69,8 @@ let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-hi Pmenu ctermbg=8
-hi PmenuSel ctermbg=1
+hi Pmenu ctermbg=7
+hi PmenuSel ctermbg=6
 hi PmenuSbar ctermbg=0
 
 " key miss catches
@@ -92,6 +88,9 @@ set number
 set numberwidth=3
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE
       \ guifg=DarkGrey guibg=NONE
+
+" syntastic
+let g:syntastic_javascript_checkers = ['jsxhint']
 
 " tab management
 set splitbelow
@@ -199,21 +198,3 @@ autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
 set relativenumber
-
-" Controlling vim-latex
-let g:Tex_SmartKeyBS = 0
-let g:Tex_SmartKeyQuote = 0
-let g:Tex_SmartKeyDot = 0
-let g:Imap_UsePlaceHolders = 0
-let g:Tex_Leader = '`tex'
-let g:Tex_Leader2 = ',tex'
-let Tex_FoldedSections=""
-let Tex_FoldedEnvironments=""
-let Tex_FoldedMisc=""
-let g:Imap_FreezeImap=1
-let g:Tex_Leader = '`tex'
-let g:Tex_Leader2 = ',tex'
-nnoremap <SID>I_won’t_ever_type_this <Plug>IMAP_JumpForward
- 
-" These are my shortcuts, you will probably want your own
-map <leader>cx :call CoffeeLintFile()<cr>
