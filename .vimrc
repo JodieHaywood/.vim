@@ -28,6 +28,15 @@ set ruler
 set smarttab
 set t_Co=256
 
+" colors
+set background=dark
+colorscheme base16-atelierforest
+let base16colorspace=256
+"hi CursorLine cterm=underline ctermbg=NONE
+
+" syntax highlighting
+let python_highlight_all = 1
+
 " Fix for ssh to let NERDTREE work with different locale
 let g:NERDTreeDirArrows=0
 
@@ -69,9 +78,9 @@ let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
-hi Pmenu ctermbg=7
-hi PmenuSel ctermbg=6
-hi PmenuSbar ctermbg=0
+"hi Pmenu ctermbg=7
+"hi PmenuSel ctermbg=6
+"hi PmenuSbar ctermbg=0
 
 " key miss catches
 command WQ wq
@@ -88,6 +97,10 @@ set number
 set numberwidth=3
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE
       \ guifg=DarkGrey guibg=NONE
+
+" search highlighting
+set hlsearch
+set incsearch
 
 " syntastic
 let g:syntastic_javascript_checkers = ['jsxhint']
