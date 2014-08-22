@@ -30,9 +30,8 @@ set t_Co=256
 
 " colors
 set background=dark
-colorscheme base16-atelierforest
-let base16colorspace=256
-"hi CursorLine cterm=underline ctermbg=NONE
+hi Visual term=reverse cterm=reverse guibg=LightGrey 
+"colorscheme base16-atelierforest
 
 " syntax highlighting
 let python_highlight_all = 1
@@ -98,9 +97,6 @@ set numberwidth=3
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE
       \ guifg=DarkGrey guibg=NONE
 
-" search highlighting
-set hlsearch
-set incsearch
 
 " syntastic
 let g:syntastic_javascript_checkers = ['jsxhint']
