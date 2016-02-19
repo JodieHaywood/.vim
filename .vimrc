@@ -104,3 +104,8 @@ set wildignore+=*/node_modules/*,*/build/*,*.so,*.swp,*.zip
 let g:neocomplete#enable_at_startup = 1
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
+" DelimitMate
+let delimitMate_jump_expansion = 1
+imap <C-Space> <Plug>delimitMateS-Tab
+imap <C-@> <C-Space>
