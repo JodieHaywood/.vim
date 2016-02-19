@@ -28,3 +28,6 @@
 [submodule "bundle/base16-vim"]
 	path = bundle/base16-vim
 	url = https://github.com/chriskempson/base16-vim.git
+[submodule "bundle/vim-railscast-theme"]
+	path = bundle/vim-railscast-theme
+	url = https://github.com/jpo/vim-railscasts-theme.git

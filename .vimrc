@@ -32,6 +32,7 @@ set pastetoggle=<F2> " allows F2 to be mapped to turn on and off pasting in vim
 " colors
 set background=dark
 hi Visual term=reverse cterm=reverse guibg=LightGrey 
+colorscheme delek
 
 " Fix for ssh to let NERDTREE work with different locale
 let g:NERDTreeDirArrows=0
@@ -109,3 +110,4 @@ inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 let delimitMate_jump_expansion = 1
 imap <C-Space> <Plug>delimitMateS-Tab
 imap <C-@> <C-Space>
+
