@@ -1,5 +1,4 @@
 " .vimrc by Lingliang Zhang
-
 set nocompatible
 
 " turn on pathogen
@@ -9,7 +8,8 @@ call pathogen#infect()
 imap jj <Esc>
 
 " switch on syntax highlighting
-syntax enable
+syntax on
+
 " enable file type detection and indent appropriately 
 filetype plugin indent on
 
