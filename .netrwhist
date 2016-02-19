@@ -1,5 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =6
 let g:netrw_dirhist_1='/Users/lzhang/Documents/dotfiles/.git'
 let g:netrw_dirhist_2='/Users/lzhang/Temp/indoc-quotes/quotes'
 let g:netrw_dirhist_3='/Users/lzhang/Temp/oe-softlinks/gradle/wrapper'
+let g:netrw_dirhist_4='/etc/apt/sources.list.d'
+let g:netrw_dirhist_5='/home/ling/Temp/dotfiles/.git'
+let g:netrw_dirhist_6='/home/ling/.i3'
