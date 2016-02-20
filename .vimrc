@@ -47,6 +47,7 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE
 let mapleader = " "
 nmap <C-S> :w<CR>
 nmap <C-f> za
+nmap <C-q> :q<CR>
 nmap <Esc>h b
 nmap <Esc>l w
 nmap <Esc>j }
@@ -139,7 +140,7 @@ set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#show_close_button = 0
-let g:airline#extensions#tabline#show_tabs = 0
+let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline_theme='murmur'
 let g:airline_left_sep=''
@@ -165,3 +166,19 @@ map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
+
+" Ag
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+nnoremap <C-b> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nmap <silent> <Leader>n :cnext<CR>
+nmap <silent> <Leader>p :cprev<CR>
+nnoremap \ :Ag<SPACE>
