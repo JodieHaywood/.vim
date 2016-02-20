@@ -137,6 +137,10 @@ imap <C-@> <C-Space>
 " Airline
 set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#show_tabs = 0
+let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline_theme='murmur'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
@@ -151,3 +155,13 @@ let g:airline#extensions#tabline#show_buffers=0
 let g:airline#extensions#default#section_truncate_width = {
   \ 'c': 40,
   \ }
+
+" Easymotion
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+nmap s <Plug>(easymotion-overwin-f2)
+omap t <Plug>(easymotion-bd-tl)
+let g:EasyMotion_smartcase = 1
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
