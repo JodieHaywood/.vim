@@ -45,9 +45,9 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE
 
 " Some shortcuts
 let mapleader = " "
-nmap <C-S> :w<CR>
-nmap <C-f> za
-nmap <C-q> :q<CR>
+nmap <Leader>s :w<CR>
+nmap <Leader>f za
+nmap <Leader>q :q<CR>
 nmap <Esc>h b
 nmap <Esc>l w
 nmap <Esc>j }
@@ -77,8 +77,6 @@ set relativenumber
 " Folding is fun
 set foldmethod=syntax
 set foldlevel=99
-nmap <Leader>f za
-
 
 " NERDTree
 " maps F3 to open the file explorer
@@ -178,7 +176,12 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
-nnoremap <C-b> :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap <Leader>g :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nmap <silent> <Leader>n :cnext<CR>
 nmap <silent> <Leader>p :cprev<CR>
 nnoremap \ :Ag<SPACE>
+
+" TCommenter
+map <Leader>" gcc
+map <Leader>" gc
+vmap <Leader>" :TCommentBlock<CR>
