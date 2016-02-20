@@ -43,20 +43,28 @@ set numberwidth=3
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE
       \ guifg=DarkGrey guibg=NONE
 
+" Some shortcuts
+let mapleader = " "
+nmap <C-S> :w<CR>
+nmap <C-f> za
+nmap <Esc>h b
+nmap <Esc>l w
+nmap <Esc>j }
+nmap <Esc>k {
+
 " tab management
 set splitbelow
 set splitright
-nmap <silent> <C-k> :wincmd k<CR>
-nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-h> :wincmd h<CR>
+nmap <silent> <C-j> :wincmd j<CR>
+nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-l> :wincmd l<CR>
-nmap <silent> <C-Right> <C-W>>
-nmap <silent> <C-Left> <C-W><
-nmap <silent> <C-Down> <C-W>-
-nmap <silent> <C-Up> <C-W>+
+nmap <Leader>h <C-W><
+nmap <Leader>j <C-W>+
+nmap <Leader>k <C-W>-
+nmap <Leader>l <C-W>>
 
 " Line numbers 
-
 au FocusLost * :set number
 au FocusGained * :set relativenumber
 
@@ -64,6 +72,11 @@ autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
 set relativenumber
+
+" Folding is fun
+set foldmethod=syntax
+set foldlevel=99
+nmap <Leader>f za
 
 
 " NERDTree
@@ -95,8 +108,18 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_loc_list = 1
 let g:syntastic_javascript_checkers = ['eslint']
+
+function! ToggleErrors()
+    let old_last_winnr = winnr('$')
+    lclose
+    if old_last_winnr == winnr('$')
+        " Nothing was closed, open syntastic error location panel
+        SyntasticCheck
+        Errors
+    endif
+endfunction
+map <silent> <Leader>e :<C-u>call ToggleErrors()<CR>
 
 " Ctrl P
 set wildignore+=*/node_modules/*,*/build/*,*.so,*.swp,*.zip 
@@ -111,3 +134,20 @@ let delimitMate_jump_expansion = 1
 imap <C-Space> <Plug>delimitMateS-Tab
 imap <C-@> <C-Space>
 
+" Airline
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='murmur'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline_section_a="%{strftime(\"%k:%M:%S\")}"
+let g:airline_section_c="%f%m%r"
+let g:airline_section_x=""
+let g:airline_section_y=""
+let g:airline_section_z="%l : %p%%"
+let g:airline_section_error=""
+let g:airline_section_warning=""
+let g:airline#extensions#tabline#show_buffers=0
+let g:airline#extensions#default#section_truncate_width = {
+  \ 'c': 40,
+  \ }

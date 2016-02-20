@@ -31,3 +31,9 @@
 [submodule "bundle/vim-railscast-theme"]
 	path = bundle/vim-railscast-theme
 	url = https://github.com/jpo/vim-railscasts-theme.git
+[submodule "bundle/vim-airline"]
+	path = bundle/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
+[submodule "bundle/vim-airline-themes"]
+	path = bundle/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git
