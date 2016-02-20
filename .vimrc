@@ -48,6 +48,7 @@ let mapleader = " "
 nmap <Leader>s :w<CR>
 nmap <Leader>f za
 nmap <Leader>q :q<CR>
+nmap <Leader>Q :qa<CR>
 nmap <Esc>h b
 nmap <Esc>l w
 nmap <Esc>j }
@@ -176,10 +177,10 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
-nnoremap <Leader>g :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nmap <silent> <Leader>n :cnext<CR>
 nmap <silent> <Leader>p :cprev<CR>
 nnoremap \ :Ag<SPACE>
+nnoremap <Leader>g :Ag <cword><CR>
 
 " TCommenter
 map <Leader>" gcc
