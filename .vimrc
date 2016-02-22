@@ -44,7 +44,8 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE
       \ guifg=DarkGrey guibg=NONE
 
 " Some shortcuts
-let mapleader = " "
+nmap <Space> }
+let mapleader = "}"
 nmap <Leader>s :w<CR>
 nmap <Leader>f za
 nmap <Leader>q :q<CR>
@@ -134,32 +135,26 @@ let delimitMate_jump_expansion = 1
 imap <C-Space> <Plug>delimitMateS-Tab
 imap <C-@> <C-Space>
 
-" Airline
-set laststatus=2
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#show_close_button = 0
-let g:airline#extensions#tabline#show_tabs = 1
-let g:airline#extensions#tabline#show_tab_type = 0
-let g:airline_theme='murmur'
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_section_a="%{strftime(\"%k:%M:%S\")}"
-let g:airline_section_c="%f%m%r"
-let g:airline_section_x=""
-let g:airline_section_y=""
-let g:airline_section_z="%l : %p%%"
-let g:airline_section_error=""
-let g:airline_section_warning=""
-let g:airline#extensions#tabline#show_buffers=0
-let g:airline#extensions#default#section_truncate_width = {
-  \ 'c': 40,
-  \ }
+" Statusline
+set statusline=\ [%{fugitive#head(5)}]\       "tail of the filename
+set statusline+=%f\      "tail of the filename
+set statusline+=%h      "help file flag
+set statusline+=%m      "modified flag
+set statusline+=%r      "read only flag
+set statusline+=%w      "preview flag
+set statusline+=%q      "quickfix flag
+set statusline+=%=      "left/right separator
+set statusline+=%c     "cursor column
+set statusline+=:%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+hi Statusline ctermbg=green ctermfg=white
+hi StatuslineNC ctermbg=white ctermfg=blue
 
 " Easymotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
-nmap s <Plug>(easymotion-overwin-f2)
-omap t <Plug>(easymotion-bd-tl)
+nmap s <Plug>(easymotion-overwin-f)
+omap t <Plug>(easymotion-tl)
+omap T <Plug>(easymotion-Tl)
 let g:EasyMotion_smartcase = 1
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
@@ -183,6 +178,5 @@ nnoremap \ :Ag<SPACE>
 nnoremap <Leader>g :Ag <cword><CR>
 
 " TCommenter
-map <Leader>" gcc
-map <Leader>" gc
-vmap <Leader>" :TCommentBlock<CR>
+map <Leader>/ gcc
+vmap <Leader>/ :TCommentBlock<CR>
