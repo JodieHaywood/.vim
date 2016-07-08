@@ -44,8 +44,8 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE
       \ guifg=DarkGrey guibg=NONE
 
 " Some shortcuts
-nmap <Space> }
-let mapleader = "}"
+nmap <Space> ~
+let mapleader = "~"
 nmap <Leader>s :w<CR>
 nmap <Leader>f za
 nmap <Leader>q :q<CR>
@@ -54,6 +54,10 @@ nmap <Esc>h b
 nmap <Esc>l w
 nmap <Esc>j }
 nmap <Esc>k {
+vmap <Esc>h b
+vmap <Esc>l w
+vmap <Esc>j }
+vmap <Esc>k {
 
 " tab management
 set splitbelow
@@ -80,6 +84,9 @@ set relativenumber
 set foldmethod=syntax
 set foldlevel=99
 
+" stop python scratch complete
+set completeopt-=preview
+
 " NERDTree
 " maps F3 to open the file explorer
 map <F3> :NERDTreeToggle<CR> 
@@ -93,6 +100,8 @@ let g:ctrlp_prompt_mappings = {
   \ 'AcceptSelection("v")': ['<c-u>']
   \ }
 
+" Python
+autocmd Filetype python setlocal ts=4 sw=4
 
 function! StartUp()
     if 0 == argc()
@@ -110,6 +119,7 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_python_python_exec = '/path/to/python3'
 
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
@@ -143,6 +153,9 @@ set statusline+=%m      "modified flag
 set statusline+=%r      "read only flag
 set statusline+=%w      "preview flag
 set statusline+=%q      "quickfix flag
+set statusline+=%#warningmsg#      "syntastic message
+set statusline+=%{SyntasticStatuslineFlag()}  "syntastic message
+set statusline+=%*
 set statusline+=%=      "left/right separator
 set statusline+=%c     "cursor column
 set statusline+=:%l/%L   "cursor line/total lines
