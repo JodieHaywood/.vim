@@ -34,6 +34,11 @@ set background=dark
 hi Visual term=reverse cterm=reverse guibg=LightGrey 
 colorscheme delek
 
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
+
 " Fix for ssh to let NERDTREE work with different locale
 let g:NERDTreeDirArrows=0
 
@@ -47,9 +52,10 @@ highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE
 nmap <Space> ~
 let mapleader = "~"
 nmap <Leader>s :w<CR>
-nmap <Leader>f za
 nmap <Leader>q :q<CR>
 nmap <Leader>Q :qa<CR>
+imap <C-H> <C-W>
+
 nmap <Esc>h b
 nmap <Esc>l w
 nmap <Esc>j }
@@ -58,6 +64,10 @@ vmap <Esc>h b
 vmap <Esc>l w
 vmap <Esc>j }
 vmap <Esc>k {
+omap <Esc>h b
+omap <Esc>l w
+omap <Esc>j }
+omap <Esc>k {
 
 " tab management
 set splitbelow
@@ -66,10 +76,13 @@ nmap <silent> <C-h> :wincmd h<CR>
 nmap <silent> <C-j> :wincmd j<CR>
 nmap <silent> <C-k> :wincmd k<CR>
 nmap <silent> <C-l> :wincmd l<CR>
-nmap <Leader>h <C-W><
-nmap <Leader>j <C-W>+
-nmap <Leader>k <C-W>-
-nmap <Leader>l <C-W>>
+nmap <Esc>Od <C-W><
+nmap <Esc>Oc <C-W>>
+nmap <Esc>Oa <C-W>+
+nmap <Esc>Ob <C-W>-
+
+" Fix esc delay
+set timeoutlen=1000 ttimeoutlen=0
 
 " Line numbers 
 au FocusLost * :set number
@@ -79,10 +92,6 @@ autocmd InsertEnter * :set number
 autocmd InsertLeave * :set relativenumber
 
 set relativenumber
-
-" Folding is fun
-set foldmethod=syntax
-set foldlevel=99
 
 " stop python scratch complete
 set completeopt-=preview
@@ -145,51 +154,20 @@ let delimitMate_jump_expansion = 1
 imap <C-Space> <Plug>delimitMateS-Tab
 imap <C-@> <C-Space>
 
-" Statusline
-set statusline=\ [%{fugitive#head(5)}]\       "tail of the filename
-set statusline+=%f\      "tail of the filename
-set statusline+=%h      "help file flag
-set statusline+=%m      "modified flag
-set statusline+=%r      "read only flag
-set statusline+=%w      "preview flag
-set statusline+=%q      "quickfix flag
-set statusline+=%#warningmsg#      "syntastic message
-set statusline+=%{SyntasticStatuslineFlag()}  "syntastic message
-set statusline+=%*
-set statusline+=%=      "left/right separator
-set statusline+=%c     "cursor column
-set statusline+=:%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
-hi Statusline ctermbg=green ctermfg=white
-hi StatuslineNC ctermbg=white ctermfg=blue
-
 " Easymotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 nmap s <Plug>(easymotion-overwin-f)
-omap t <Plug>(easymotion-tl)
-omap T <Plug>(easymotion-Tl)
+omap s <Plug>(easymotion-overwin-f)
 let g:EasyMotion_smartcase = 1
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 map  n <Plug>(easymotion-next)
 map  N <Plug>(easymotion-prev)
 
-" Ag
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
-nmap <silent> <Leader>n :cnext<CR>
-nmap <silent> <Leader>p :cprev<CR>
-nnoremap \ :Ag<SPACE>
-nnoremap <Leader>g :Ag <cword><CR>
-
 " TCommenter
-map <Leader>/ gcc
-vmap <Leader>/ :TCommentBlock<CR>
+map <Leader>" gcc
+vmap <Leader>" gc
+
+" Fugitive
+autocmd QuickFixCmdPost *grep* cwindow
+set diffopt+=vertical
