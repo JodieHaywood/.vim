@@ -171,3 +171,31 @@ vmap <Leader>" gc
 " Fugitive
 autocmd QuickFixCmdPost *grep* cwindow
 set diffopt+=vertical
+
+" Lightline
+let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ 'active': {
+      \   'left': [ [ 'fugitive' ],
+      \             [ 'filename', 'readonly', 'modified' ],
+      \             [ 'paste' ] ],
+      \   'right': [ ['percent', 'lineinfo'], [ 'fileencoding'], ['syntastic'] ]
+      \ },
+      \ 'component': {
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+      \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'readonly': '(&filetype!="help"&& &readonly)',
+      \   'modified': '(&filetype!="help"&&(&modified||!&modifiable))',
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ },
+      \ 'component_expand': {
+      \   'syntastic': 'SyntasticStatuslineFlag',
+      \ },
+      \ 'component_type': {
+      \   'syntastic': 'error',
+      \   'fugitive': 'warning',
+      \ }
+      \}
