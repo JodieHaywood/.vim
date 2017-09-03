@@ -5,13 +5,15 @@ set nocompatible
 call pathogen#infect()
 
 " allow jj to exist insert mode
-imap jj <Esc>
+imap jj <C-c>
 
 " switch on syntax highlighting
 syntax on
 
 " enable file type detection and indent appropriately 
 filetype plugin indent on
+au BufRead,BufNewFile *.ts set filetype=typescript
+
 
 " Other formatting (including PEP8)
 set nowrap " don't wrap lines
@@ -54,6 +56,8 @@ let mapleader = "~"
 nmap <Leader>s :w<CR>
 nmap <Leader>q :q<CR>
 nmap <Leader>Q :qa<CR>
+nmap <Leader>u :vsp
+nmap <Leader>i :sp
 imap <C-H> <C-W>
 
 nmap <Esc>h b
@@ -68,6 +72,7 @@ omap <Esc>h b
 omap <Esc>l w
 omap <Esc>j }
 omap <Esc>k {
+imap <Esc><BS> <C-w>
 
 " tab management
 set splitbelow
@@ -95,7 +100,7 @@ set relativenumber
 
 " stop python scratch complete
 set completeopt-=preview
-
+"
 " NERDTree
 " maps F3 to open the file explorer
 map <F3> :NERDTreeToggle<CR> 
@@ -105,9 +110,10 @@ let g:NERDTreeMapOpenVSplit = "u"
 
 " ctrlp remap
 let g:ctrlp_prompt_mappings = {
-  \ 'AcceptSelection("h")': ['<c-i>'],
-  \ 'AcceptSelection("v")': ['<c-u>']
+  \ 'AcceptSelection("v")': ['<c-u>'],
+  \ 'AcceptSelection("h")': ['<c-i>']
   \ }
+let g:ctrlp_custom_ignore = 'node_modules/\|dist/\|.git/'
 
 " Python
 autocmd Filetype python setlocal ts=4 sw=4
@@ -128,7 +134,22 @@ set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_python_python_exec = '/path/to/python3'
+let g:syntastic_typescript_checkers = ['tslint']
+let g:syntastic_python_python_exec = 'python3'
+" noremap :wq :au! syntastic<cr>:wq
+" noremap :wqa :au! syntastic<cr>:wqa
+
+
+let g:ycm_filetype_blacklist = {
+  \ 'qf' : 1
+  \}
+let g:ycm_filetype_specific_completion_to_disable = {
+  \ 'qf': 1
+  \}
+
+
+" Typescript
+autocmd FileType typescript :set makeprg=tsc
 
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
@@ -145,19 +166,27 @@ map <silent> <Leader>e :<C-u>call ToggleErrors()<CR>
 set wildignore+=*/node_modules/*,*/build/*,*.so,*.swp,*.zip 
 
 " Neocomplete
-let g:neocomplete#enable_at_startup = 1
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+" let g:neocomplete#enable_at_startup = 1
+" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+
+" YCM
+nnoremap <C-b> :YcmCompleter GoToDefinition<CR>
+nnoremap <Leader>b :YcmCompleter GoToReferences<CR>
+nnoremap <C-n> :YcmCompleter GetType<CR>
+nnoremap <Leader>n :YcmCompleter GetDoc<CR>
+nnoremap <Leader>r :YcmCompleter RefactorRename 
+let g:ycm_goto_buffer_command = 'new-or-existing-tab'
+
 
 " DelimitMate
-let delimitMate_jump_expansion = 1
-imap <C-Space> <Plug>delimitMateS-Tab
-imap <C-@> <C-Space>
+imap <C-Space> <C-c>la
+imap <C-a> <C-c>i
 
 " Easymotion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
-nmap s <Plug>(easymotion-overwin-f)
-omap s <Plug>(easymotion-overwin-f)
+nmap s <Plug>(easymotion-s)
+omap s <Plug>(easymotion-t)
 let g:EasyMotion_smartcase = 1
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
