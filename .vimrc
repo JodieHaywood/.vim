@@ -206,12 +206,15 @@ let g:lightline = {
       \ 'colorscheme': 'powerline',
       \ 'active': {
       \   'left': [ [ 'fugitive' ],
-      \             [ 'filename', 'readonly', 'modified' ],
+      \             [ 'relativepath', 'readonly', 'modified' ],
       \             [ 'paste' ] ],
       \   'right': [ ['percent', 'lineinfo'], [ 'fileencoding'], ['syntastic'] ]
       \ },
+      \ 'inactive': {
+      \   'left': [['relativepath', 'readonly', 'modified']] 
+      \ },
       \ 'component': {
-      \   'readonly': '%{&filetype=="help"?"":&readonly?"⭤":""}',
+      \   'readonly': '%{&filetype=="help"?"":&readonly?"[RO]":""}',
       \   'modified': '%{&filetype=="help"?"":&modified?"+":&modifiable?"":"-"}',
       \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
       \ },
