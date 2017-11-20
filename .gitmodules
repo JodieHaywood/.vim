@@ -67,3 +67,24 @@
 [submodule "bundle/ack.vim"]
 	path = bundle/ack.vim
 	url = https://github.com/mileszs/ack.vim.git
+[submodule "bundle/vim-rhubarb"]
+	path = bundle/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb.git
+[submodule "bundle/tsuquyomi"]
+	path = bundle/tsuquyomi
+	url = git@github.com:Quramy/tsuquyomi.git
+[submodule "bundle/deoplete"]
+	path = bundle/deoplete
+	url = git@github.com:Shougo/deoplete.nvim.git
+[submodule "bundle/vim-hug-neovim-rpc"]
+	path = bundle/vim-hug-neovim-rpc
+	url = git@github.com:roxma/vim-hug-neovim-rpc.git
+[submodule "bundle/nvim-yarp"]
+	path = bundle/nvim-yarp
+	url = git@github.com:roxma/nvim-yarp.git
+[submodule "bundle/supertab"]
+	path = bundle/supertab
+	url = git@github.com:ervandew/supertab.git
+[submodule "bundle/nvim-typescript"]
+	path = bundle/nvim-typescript
+	url = git@github.com:roxma/nvim-typescript.git

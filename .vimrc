@@ -85,6 +85,8 @@ nmap <Esc>Od <C-W><
 nmap <Esc>Oc <C-W>>
 nmap <Esc>Oa <C-W>+
 nmap <Esc>Ob <C-W>-
+nmap <S-l> gt
+nmap <S-h> gT
 
 " Fix esc delay
 set timeoutlen=1000 ttimeoutlen=0
@@ -114,6 +116,7 @@ let g:ctrlp_prompt_mappings = {
   \ 'AcceptSelection("h")': ['<c-i>']
   \ }
 let g:ctrlp_custom_ignore = 'node_modules/\|dist/\|.git/'
+let g:ctrlp_working_path_mode = 'a'
 
 " Python
 autocmd Filetype python setlocal ts=4 sw=4
@@ -140,13 +143,6 @@ let g:syntastic_python_python_exec = 'python3'
 " noremap :wqa :au! syntastic<cr>:wqa
 
 
-let g:ycm_filetype_blacklist = {
-  \ 'qf' : 1
-  \}
-let g:ycm_filetype_specific_completion_to_disable = {
-  \ 'qf': 1
-  \}
-
 
 " Typescript
 autocmd FileType typescript :set makeprg=tsc
@@ -167,17 +163,26 @@ set wildignore+=*/node_modules/*,*/build/*,*.so,*.swp,*.zip
 
 " Neocomplete
 " let g:neocomplete#enable_at_startup = 1
-" inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
-" YCM
-nnoremap <C-b> :YcmCompleter GoToDefinition<CR>
-nnoremap <Leader>b :YcmCompleter GoToReferences<CR>
-nnoremap <C-n> :YcmCompleter GetType<CR>
-nnoremap <Leader>n :YcmCompleter GetDoc<CR>
-nnoremap <Leader>r :YcmCompleter RefactorRename 
-let g:ycm_goto_buffer_command = 'new-or-existing-tab'
+" Deoplete
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
+inoremap <expr><C-TAB>  pumvisible() ? "\<C-p>" : "\<S-TAB>"
 
+" You Complete Me
+" let g:ycm_filetype_blacklist = {
+"   \ 'qf' : 1
+"   \}
+" let g:ycm_filetype_specific_completion_to_disable = {
+"   \ 'qf': 1
+"   \}
+" nnoremap <C-b> :YcmCompleter GoToDefinition<CR>
+" nnoremap <Leader>b :YcmCompleter GoToReferences<CR>
+" nnoremap <C-n> :YcmCompleter GetType<CR>
+" nnoremap <Leader>n :YcmCompleter GetDoc<CR>
+" nnoremap <Leader>r :YcmCompleter RefactorRename 
+" let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 
 " DelimitMate
 imap <C-Space> <C-c>la
